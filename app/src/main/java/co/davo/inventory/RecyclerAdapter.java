@@ -1,7 +1,9 @@
 package co.davo.inventory;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,7 +50,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemHo
         }
         @Override
         public void onClick(View view) {
-
+            Log.d("RecyclerView", "CLICK!");
+            Context context = view.getContext();
+            int itemPosition = items.getPosition();
         }
     }
 
