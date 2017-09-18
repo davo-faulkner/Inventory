@@ -52,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemHo
         public void onClick(View view) {
             Log.d("RecyclerView", "CLICK!");
             Context context = view.getContext();
-            int itemPosition = items.getPosition();
+            int itemPosition = getAdapterPosition();
         }
     }
 
