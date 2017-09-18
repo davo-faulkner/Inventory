@@ -7,13 +7,9 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
-
-import static android.R.attr.id;
 
 /**
  * Created by Davo on 8/30/2017.
@@ -60,7 +56,7 @@ public class InventoryProvider extends ContentProvider {
                 break;
             case ITEM_ID:
                 selection = InventoryEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
                 cursor = database.query(InventoryEntry.TABLE_NAME, projection, selection,
                         selectionArgs, null, null, sortOrder);
@@ -134,7 +130,7 @@ public class InventoryProvider extends ContentProvider {
                 break;
             case ITEM_ID:
                 selection = InventoryEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(InventoryEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
@@ -148,7 +144,56 @@ public class InventoryProvider extends ContentProvider {
         return rowsDeleted;
     }
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case ITEMS:
+                return updateItem(uri, values, selection, selectionArgs);
+            case ITEM_ID:
+                selection = InventoryEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateItem(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+    }
+
+    private int updateItem(Uri uri, ContentValues values, String selection, String[]
+            selectionArgs) {
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_NAME)) {
+            String name = values.getAsString(InventoryEntry.COLUMN_ITEM_NAME);
+            if (name == null) {
+                throw new IllegalArgumentException("Item requires a name");
+            }
+        }
+
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_QUANTITY)) {
+            Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_ITEM_QUANTITY);
+            if (quantity == null || quantity < 0) {
+                throw new IllegalArgumentException("Item requires a positive quantity");
+            }
+        }
+
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_PRICE)) {
+            Integer price = values.getAsInteger(InventoryEntry.COLUMN_ITEM_PRICE);
+            if (price == null || price < 0) {
+                throw new IllegalArgumentException("Item requires a positive price");
+            }
+        }
+
+        if (values.size() == 0) {
+            return 0;
+        }
+
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        int rowsUpdated = database.update(InventoryEntry.TABLE_NAME, values, selection,
+                selectionArgs);
+
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
     }
 }
