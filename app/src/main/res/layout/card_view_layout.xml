@@ -16,28 +16,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/name"
             style="@style/textview_style"
             android:layout_marginBottom="0dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Title"/>
+            tools:text="Name"/>
 
         <TextView
-            android:id="@+id/section"
+            android:id="@+id/price"
             style="@style/textview_style"
             android:layout_marginBottom="0dp"
             android:textSize="18sp"
             android:textStyle="italic"
-            tools:text="Section"/>
+            tools:text="Price"/>
 
         <TextView
-            android:id="@+id/publication_date"
+            android:id="@+id/quantity"
             style="@style/textview_style"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
-            tools:text="Publication Date"/>
+            tools:text="Quantity"/>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
