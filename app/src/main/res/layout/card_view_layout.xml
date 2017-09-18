@@ -1,7 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.v7.widget.CardView android:id="@+id/card_view"
+                                    xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="6dp"
+                                    card_view:cardCornerRadius="4dp">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/textview_style"
+            android:layout_marginBottom="0dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/section"
+            style="@style/textview_style"
+            android:layout_marginBottom="0dp"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            tools:text="Section"/>
+
+        <TextView
+            android:id="@+id/publication_date"
+            style="@style/textview_style"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            tools:text="Publication Date"/>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
