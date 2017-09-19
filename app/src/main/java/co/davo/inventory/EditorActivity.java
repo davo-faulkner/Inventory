@@ -1,10 +1,12 @@
 package co.davo.inventory;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +35,23 @@ public class EditorActivity extends AppCompatActivity implements
         }
     };
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_editor);
+
+        Intent intent = getIntent();
+        currentItemUri = intent.getData();
+
+        if (currentItemUri == null) {
+            setTitle(getString(R.string.editor_activity_title_new_item));
+            invalidateOptionsMenu();
+        } else {
+            setTitle(getString(R.string.editor_activity_title_edit_item));
+            getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
+        }
+        //TODO Continue here, Davo
+    }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return null;
