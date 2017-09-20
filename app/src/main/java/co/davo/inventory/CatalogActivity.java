@@ -17,6 +17,8 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
+    private static final int ITEM_LOADER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
