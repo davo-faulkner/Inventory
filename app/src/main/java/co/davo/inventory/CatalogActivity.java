@@ -62,8 +62,21 @@ public class CatalogActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+
+        getLoaderManager().initLoader(ITEM_LOADER, null, this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getLoaderManager().initLoader(ITEM_LOADER, null, this);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        getLoaderManager().initLoader(ITEM_LOADER, null, this);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -102,7 +115,7 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data != null) {
+        if (data.getCount() > 0 && data != null) {
             recyclerView.setVisibility(View.VISIBLE);
             this.items = data;
             itemRecyclerAdapter = new RecyclerAdapter(items);
@@ -112,6 +125,11 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        items.close();
+        if (items.getCount() > 0 && items != null) {
+            recyclerView.setVisibility(View.VISIBLE);
+            itemRecyclerAdapter = new RecyclerAdapter(items);
+        } else {
+            emptyStateTextView.setVisibility(View.VISIBLE);
+        }
     }
 }
