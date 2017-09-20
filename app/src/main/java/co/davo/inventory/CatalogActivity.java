@@ -1,23 +1,37 @@
 package co.davo.inventory;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
+    public static final String LOG_TAG = CatalogActivity.class.getName();
     private static final int ITEM_LOADER = 0;
+
+    private Cursor items;
+
+    private RecyclerView recyclerView;
+    private RecyclerAdapter itemRecyclerAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    private TextView emptyStateTextView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +45,8 @@ public class CatalogActivity extends AppCompatActivity implements
 
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                startActivity(intent);
             }
         });
     }
