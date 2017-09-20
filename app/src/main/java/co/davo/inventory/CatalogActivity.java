@@ -1,6 +1,7 @@
 package co.davo.inventory;
 
 import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,8 +20,10 @@ import android.widget.TextView;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
+import static android.R.attr.data;
+
 public class CatalogActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>{
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String LOG_TAG = CatalogActivity.class.getName();
     private static final int ITEM_LOADER = 0;
@@ -31,7 +35,6 @@ public class CatalogActivity extends AppCompatActivity implements
     private RecyclerView.LayoutManager layoutManager;
 
     private TextView emptyStateTextView;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,16 @@ public class CatalogActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_catalog);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setVisibility(View.GONE);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        emptyStateTextView.setText(R.string.no_items_found);
+        emptyStateTextView.setVisibility(View.GONE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +87,31 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return null;
+        String[] projection = {
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_ITEM_NAME,
+                InventoryEntry.COLUMN_ITEM_PRICE,
+                InventoryEntry.COLUMN_ITEM_QUANTITY
+        };
+        return new CursorLoader(this,
+                InventoryEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
     }
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data != null) {
+            recyclerView.setVisibility(View.VISIBLE);
+            this.items = data;
+            itemRecyclerAdapter = new RecyclerAdapter(items);
+        } else {
+            emptyStateTextView.setVisibility(View.VISIBLE);
+        }
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        items.close();
     }
 }

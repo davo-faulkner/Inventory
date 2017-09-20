@@ -11,4 +11,5 @@
     <string name="category_order">Place Order</string>
     <string name="order">Order</string>
     <string name="hint_item_order_quantity">Quantity</string>
+    <string name="no_items_found">No items found.</string>
 </resources>
