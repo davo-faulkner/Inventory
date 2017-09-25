@@ -44,7 +44,7 @@ public class CatalogActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setVisibility(View.GONE);
+//        recyclerView.setVisibility(View.GONE);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -115,9 +115,11 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.getCount() > 0 && data != null) {
+        if (data.getCount() > 0) {
+            int dataCount = data.getCount();
             recyclerView.setVisibility(View.VISIBLE);
             this.items = data;
+            int itemsCount = items.getCount();
             itemRecyclerAdapter = new RecyclerAdapter(items);
         } else {
             emptyStateTextView.setVisibility(View.VISIBLE);

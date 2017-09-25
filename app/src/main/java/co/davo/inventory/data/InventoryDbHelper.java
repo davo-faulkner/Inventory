@@ -28,6 +28,8 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
                 + InventoryEntry.COLUMN_ITEM_PRICE + " INTEGER NOT NULL);";
 
         db.execSQL(SQL_CREATE_INVENTORY_TABLE);
+        db.execSQL("INSERT INTO inventory(name,quantity,price) VALUES (\"Hammer\",13,999)");
+        db.execSQL("INSERT INTO inventory(name,quantity,price) VALUES (\"Box\",45,299)");
 
     }
     @Override

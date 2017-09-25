@@ -24,6 +24,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemHo
 
     public RecyclerAdapter(Cursor items) {
         this.items = items;
+        int itemsCount = items.getCount();
     }
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
