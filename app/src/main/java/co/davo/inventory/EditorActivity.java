@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -123,6 +124,35 @@ public class EditorActivity extends AppCompatActivity implements
             deleteMenuItem.setVisible(false);
         }
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                if (saveItem()) {
+                    finish();
+                }
+                return true;
+            case R.id.action_delete:
+                showDeleteConfirmationDialog();
+                return true;
+            case R.id.home:
+                if (!itemHasChanged) {
+                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                    return true;
+                }
+                DialogInterface.OnClickListener discardClickListener =
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                            }
+                        };
+                showUnsavedChangesDialog(discardClickListener);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //TODO Continue here, Davo
