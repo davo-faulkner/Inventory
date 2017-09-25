@@ -110,6 +110,8 @@ public class EditorActivity extends AppCompatActivity implements
         alertDialog.show();
     }
 
+    //TODO Continue here, Davo
+
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return null;
