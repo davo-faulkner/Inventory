@@ -1,12 +1,14 @@
 package co.davo.inventory;
 
 import android.app.LoaderManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -70,6 +72,44 @@ public class EditorActivity extends AppCompatActivity implements
         orderQuantityEditText.setOnTouchListener(touchListener);
         orderButton.setOnTouchListener(touchListener);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (!itemHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                };
+
+                showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage(R.string.unsaved_changes_alert_message);
+        alertBuilder.setPositiveButton(R.string.unsaved_changes_positive_button,
+                discardButtonClickListener);
+        alertBuilder.setNegativeButton(R.string.unsaved_changes_negative_button,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (dialogInterface != null) {
+                            dialogInterface.dismiss();
+                        }
+                    }
+                });
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return null;

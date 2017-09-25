@@ -12,4 +12,7 @@
     <string name="order">Order</string>
     <string name="hint_item_order_quantity">Quantity</string>
     <string name="no_items_found">No items found.</string>
+    <string name="unsaved_changes_alert_message">Discard changes and quit editing?</string>
+    <string name="unsaved_changes_positive_button">Discard</string>
+    <string name="unsaved_changes_negative_button">Keep Editing</string>
 </resources>
