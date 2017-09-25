@@ -31,7 +31,7 @@ public class EditorActivity extends AppCompatActivity implements
     private Button orderButton;
     private boolean itemHasChanged = false;
 
-    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             itemHasChanged = true;
@@ -62,7 +62,13 @@ public class EditorActivity extends AppCompatActivity implements
             setTitle(getString(R.string.editor_activity_title_edit_item));
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
         }
-        //TODO Continue here, Davo
+
+        nameEditText.setOnTouchListener(touchListener);
+        priceEditText.setOnTouchListener(touchListener);
+        quantityMinusButton.setOnTouchListener(touchListener);
+        quantityPlusButton.setOnTouchListener(touchListener);
+        orderQuantityEditText.setOnTouchListener(touchListener);
+        orderButton.setOnTouchListener(touchListener);
     }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
