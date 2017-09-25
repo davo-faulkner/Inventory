@@ -10,9 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-
-import co.davo.inventory.data.InventoryContract.InventoryEntry;
+import android.widget.TextView;
 
 /**
  * Created by Davo on 9/18/2017.
@@ -24,7 +24,11 @@ public class EditorActivity extends AppCompatActivity implements
     private Uri currentItemUri;
     private EditText nameEditText;
     private EditText priceEditText;
-    private EditText quantityEditText;
+    private Button quantityMinusButton;
+    private TextView quantityTextView;
+    private Button quantityPlusButton;
+    private EditText orderQuantityEditText;
+    private Button orderButton;
     private boolean itemHasChanged = false;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -42,6 +46,14 @@ public class EditorActivity extends AppCompatActivity implements
 
         Intent intent = getIntent();
         currentItemUri = intent.getData();
+
+        nameEditText = (EditText) findViewById(R.id.item_name_editText);
+        priceEditText = (EditText) findViewById(R.id.item_price_editText);
+        quantityMinusButton = (Button) findViewById(R.id.quantity_minus_button);
+        quantityTextView = (TextView) findViewById(R.id.quantity_textView);
+        quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
+        orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
+        orderButton = (Button) findViewById(R.id.order_button);
 
         if (currentItemUri == null) {
             setTitle(getString(R.string.editor_activity_title_new_item));

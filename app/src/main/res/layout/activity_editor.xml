@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edit_item_name"
+                android:id="@+id/item_name_editText"
                 android:hint="@string/hint_item_name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
@@ -50,7 +50,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edit_item_price"
+                android:id="@+id/item_price_editText"
                 android:hint="@string/hint_item_price"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
@@ -80,6 +80,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/quantity_minus_button"
                     android:layout_width="68dp"
                     android:layout_height="48dp"
                     android:text="-"
@@ -88,7 +89,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/edit_item_quantity"
+                android:id="@+id/item_quantity_textView"
                 android:gravity="center_vertical"
                 style="@style/EditorFieldStyle"
                 android:paddingLeft="16dp"
@@ -96,6 +97,7 @@
                 tools:text="0"/>
 
                 <Button
+                    android:id="@+id/quantity_plus_button"
                     android:layout_width="68dp"
                     android:layout_height="48dp"
                     android:text="+"
@@ -128,7 +130,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/edit_item_order_quantity"
+                    android:id="@+id/order_quantity_editText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -138,6 +140,7 @@
                     android:layout_marginRight="8dp"/>
 
                 <Button
+                    android:id="@+id/order_button"
                     android:layout_width="68dp"
                     android:layout_height="48dp"
                     android:text="@string/order"/>
