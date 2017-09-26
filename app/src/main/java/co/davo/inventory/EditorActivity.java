@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Davo on 9/18/2017.
@@ -31,6 +32,7 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText priceEditText;
     private Button quantityMinusButton;
     private TextView quantityTextView;
+    private int quantity;
     private Button quantityPlusButton;
     private EditText orderQuantityEditText;
     private Button orderButton;
@@ -153,6 +155,18 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void placeOrder() {
+        quantity = quantity +
+                Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
+        displayQuantity();
+        Toast.makeText(this, "Order placed. Save changes to receive items into inventory.",
+                Toast.LENGTH_LONG).show();
+    }
+
+    private void displayQuantity() {
+        quantityTextView.setText(String.valueOf(quantity));
     }
 
     //TODO Continue here, Davo
