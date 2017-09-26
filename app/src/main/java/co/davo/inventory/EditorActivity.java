@@ -57,8 +57,10 @@ public class EditorActivity extends AppCompatActivity implements
         nameEditText = (EditText) findViewById(R.id.item_name_editText);
         priceEditText = (EditText) findViewById(R.id.item_price_editText);
         quantityMinusButton = (Button) findViewById(R.id.quantity_minus_button);
+        quantityMinusButton.setOnClickListener(minusButtonListener);
         quantityTextView = (TextView) findViewById(R.id.quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
+        quantityPlusButton.setOnClickListener(plusButtonListener);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
         orderButton.setOnClickListener(orderButtonListener);
@@ -174,6 +176,32 @@ public class EditorActivity extends AppCompatActivity implements
         @Override
         public void onClick(View view) {
             placeOrder();
+        }
+    };
+
+    private void incrementQuantity() {
+        quantity++;
+        displayQuantity();
+    }
+
+    private void decrementQuantity() {
+        if (quantity < 0) {
+            quantity--;
+            displayQuantity();
+        }
+    }
+
+    private View.OnClickListener plusButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            incrementQuantity();
+        }
+    };
+
+    private View.OnClickListener minusButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            decrementQuantity();
         }
     };
 
