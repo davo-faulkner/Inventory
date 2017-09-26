@@ -61,6 +61,7 @@ public class EditorActivity extends AppCompatActivity implements
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
+        orderButton.setOnClickListener(orderButtonListener);
 
         if (currentItemUri == null) {
             setTitle(getString(R.string.editor_activity_title_new_item));
@@ -168,6 +169,13 @@ public class EditorActivity extends AppCompatActivity implements
     private void displayQuantity() {
         quantityTextView.setText(String.valueOf(quantity));
     }
+
+    private View.OnClickListener orderButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            placeOrder();
+        }
+    };
 
     //TODO Continue here, Davo
 
