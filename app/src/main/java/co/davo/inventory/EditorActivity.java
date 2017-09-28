@@ -1,6 +1,7 @@
 package co.davo.inventory;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -19,6 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import co.davo.inventory.data.InventoryContract;
+import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 /**
  * Created by Davo on 9/18/2017.
@@ -32,6 +37,7 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText priceEditText;
     private Button quantityMinusButton;
     private TextView quantityTextView;
+    private int originalQuantity;
     private int quantity;
     private Button quantityPlusButton;
     private EditText orderQuantityEditText;
@@ -134,9 +140,8 @@ public class EditorActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                if (saveItem()) {
-                    finish();
-                }
+                saveItem()
+                finish();
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
@@ -158,6 +163,25 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void saveItem() {
+        String nameString = nameEditText.getText().toString().trim();
+        int priceInt = (int) Float.parseFloat(priceEditText.getText().toString()) * 100;
+
+        if (currentItemUri == null && TextUtils.isEmpty(nameString)
+                && TextUtils.isEmpty(priceEditText.getText().toString()) &&
+                originalQuantity == quantity) {
+            return;
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
+        values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceInt);
+        values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantity);
+
+        //TODO Continue here after checking above, Davo
+
+        return;
     }
 
     private void placeOrder() {
@@ -204,9 +228,7 @@ public class EditorActivity extends AppCompatActivity implements
             decrementQuantity();
         }
     };
-
-    //TODO Continue here, Davo
-
+    
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return null;
