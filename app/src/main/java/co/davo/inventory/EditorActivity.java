@@ -174,13 +174,32 @@ public class EditorActivity extends AppCompatActivity implements
             return;
         }
 
+        if (TextUtils.isEmpty(nameString)) {
+            Toast.makeText(this, "Item name required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (priceInt == 0) {
+            Toast.makeText(this, "Item price required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
         values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceInt);
         values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantity);
 
-        //TODO Continue here after checking above, Davo
+        if (currentItemUri == null) {
+            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
 
+            if (newUri == null) {
+                Toast.makeText(this, "Error with saving item", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            //TODO Continue here after checking above, Davo
+        }
         return;
     }
 
@@ -228,7 +247,7 @@ public class EditorActivity extends AppCompatActivity implements
             decrementQuantity();
         }
     };
-    
+
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return null;
