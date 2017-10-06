@@ -175,6 +175,7 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         if (TextUtils.isEmpty(nameString)) {
+            //TODO Add String resources, Davo
             Toast.makeText(this, "Item name required", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -198,7 +199,13 @@ public class EditorActivity extends AppCompatActivity implements
                 Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
             }
         } else {
-            //TODO Continue here after checking above, Davo
+            int rowsAffected = getContentResolver().update(currentItemUri, values, null, null);
+
+            if (rowsAffected == 0) {
+                Toast.makeText(this, "Error with saving item", Toast.LENGTH_SHORT).show();
+            } else {
+                //TODO Continue here after checking above, Davo
+            }
         }
         return;
     }
