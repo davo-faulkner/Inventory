@@ -234,6 +234,18 @@ public class EditorActivity extends AppCompatActivity implements
         alertDialog.show();
     }
 
+    private void deleteItem() {
+        if (currentItemUri != null) {
+            int rowsDeleted = getContentResolver().delete(currentItemUri, null, null);
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, "Error with deleting item", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+            }
+        }
+        finish();
+    }
+
     private void placeOrder() {
         quantity = quantity +
                 Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
