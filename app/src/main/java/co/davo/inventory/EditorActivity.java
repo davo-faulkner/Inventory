@@ -140,7 +140,7 @@ public class EditorActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                saveItem()
+                saveItem();
                 finish();
                 return true;
             case R.id.action_delete:
@@ -164,6 +164,7 @@ public class EditorActivity extends AppCompatActivity implements
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void saveItem() {
         String nameString = nameEditText.getText().toString().trim();
         int priceInt = (int) Float.parseFloat(priceEditText.getText().toString()) * 100;
@@ -204,10 +205,33 @@ public class EditorActivity extends AppCompatActivity implements
             if (rowsAffected == 0) {
                 Toast.makeText(this, "Error with saving item", Toast.LENGTH_SHORT).show();
             } else {
-                //TODO Continue here after checking above, Davo
+                Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
             }
         }
         return;
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Delete this item?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteItem();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (dialogInterface != null) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void placeOrder() {
