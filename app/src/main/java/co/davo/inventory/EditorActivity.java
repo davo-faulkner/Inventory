@@ -309,7 +309,25 @@ public class EditorActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
 
+        if (cursor.moveToFirst()) {
+            int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
+            int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
+            int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
+
+            String name = cursor.getString(nameColumnIndex);
+            originalQuantity = cursor.getInt(quantityColumnIndex);
+            int priceInt = cursor.getInt(priceColumnIndex);
+            float priceFloatInflated = (float) priceInt;
+            float priceFloat = priceFloatInflated / 100;
+
+            nameEditText.setText(name);
+            quantityTextView.setText(Integer.toString(originalQuantity));
+            priceEditText.setText(Float.toString(priceFloat));
+        }
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
