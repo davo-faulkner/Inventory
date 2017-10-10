@@ -2,6 +2,7 @@ package co.davo.inventory;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
@@ -293,7 +294,18 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return null;
+        String[] projection = {
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_ITEM_NAME,
+                InventoryEntry.COLUMN_ITEM_QUANTITY,
+                InventoryEntry.COLUMN_ITEM_PRICE
+        };
+        return new CursorLoader(this,
+                currentItemUri,
+                projection,
+                null,
+                null,
+                null);
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
