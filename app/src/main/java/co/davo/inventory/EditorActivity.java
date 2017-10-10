@@ -331,6 +331,9 @@ public class EditorActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        nameEditText.setText("");
+        quantityTextView.setText("");
+        orderQuantityEditText.setText("");
+        priceEditText.setText("");
     }
 }
