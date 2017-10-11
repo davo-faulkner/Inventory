@@ -27,7 +27,7 @@
             <EditText
                 android:id="@+id/item_name_editText"
                 android:hint="@string/hint_item_name"
-                android:inputType="textCapWords"
+                android:inputType="textCapWords|textAutoComplete"
                 style="@style/EditorFieldStyle" />
 
         </LinearLayout>
@@ -52,7 +52,7 @@
             <EditText
                 android:id="@+id/item_price_editText"
                 android:hint="@string/hint_item_price"
-                android:inputType="textCapWords"
+                android:inputType="numberDecimal"
                 style="@style/EditorFieldStyle" />
 
         </LinearLayout>
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_item_order_quantity"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     style="@style/EditorFieldStyle"
                     android:layout_marginRight="8dp"/>
 
