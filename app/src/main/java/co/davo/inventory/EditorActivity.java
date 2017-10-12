@@ -275,7 +275,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void decrementQuantity() {
-        if (quantity < 0) {
+        if (quantity > 0) {
             quantity--;
             displayQuantity();
         }
