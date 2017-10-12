@@ -65,7 +65,7 @@ public class EditorActivity extends AppCompatActivity implements
         priceEditText = (EditText) findViewById(R.id.item_price_editText);
         quantityMinusButton = (Button) findViewById(R.id.quantity_minus_button);
         quantityMinusButton.setOnClickListener(minusButtonListener);
-        quantityTextView = (TextView) findViewById(R.id.quantity_textView);
+        quantityTextView = (TextView) findViewById(R.id.item_quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         quantityPlusButton.setOnClickListener(plusButtonListener);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
@@ -75,6 +75,9 @@ public class EditorActivity extends AppCompatActivity implements
         if (currentItemUri == null) {
             setTitle(getString(R.string.editor_activity_title_new_item));
             invalidateOptionsMenu();
+            originalQuantity = 0;
+            quantity = 0;
+            displayQuantity();
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_item));
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
