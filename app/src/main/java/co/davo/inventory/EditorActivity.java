@@ -281,6 +281,8 @@ public class EditorActivity extends AppCompatActivity implements
         }
     }
 
+    //TODO Davo, fix price in database 10/12/17
+
     private View.OnClickListener plusButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
