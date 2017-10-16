@@ -171,7 +171,9 @@ public class EditorActivity extends AppCompatActivity implements
 
     private void saveItem() {
         String nameString = nameEditText.getText().toString().trim();
-        int priceInt = (int) Float.parseFloat(priceEditText.getText().toString()) * 100;
+        String priceString = priceEditText.getText().toString();
+        Float priceFloat = Float.parseFloat(priceString);
+        int priceInt = (int) (priceFloat * 100);
 
         if (currentItemUri == null && TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(priceEditText.getText().toString()) &&
@@ -281,7 +283,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
     }
 
-    //TODO Davo, fix price in database 10/12/17
     //TODO Davo, fix OnTouchListener for Name EditText 10/12/17
     //TODO Davo, fix Dialog for up(?) button 10/12/17
 
