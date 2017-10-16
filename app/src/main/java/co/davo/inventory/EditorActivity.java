@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import co.davo.inventory.data.InventoryContract;
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 /**
@@ -283,7 +282,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
     }
 
-    //TODO Davo, fix OnTouchListener for Name EditText 10/12/17
     //TODO Davo, fix Dialog for up(?) button 10/12/17
 
     private View.OnClickListener plusButtonListener = new View.OnClickListener() {
