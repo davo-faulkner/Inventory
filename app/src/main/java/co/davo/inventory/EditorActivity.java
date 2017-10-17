@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.icu.text.NumberFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
@@ -22,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
@@ -256,12 +260,16 @@ public class EditorActivity extends AppCompatActivity implements
         quantity = quantity +
                 Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
         displayQuantity();
+        orderQuantityEditText.setText("");
         Toast.makeText(this, "Order placed. Save changes to receive items into inventory.",
                 Toast.LENGTH_LONG).show();
     }
 
     private void displayQuantity() {
-        quantityTextView.setText(String.valueOf(quantity));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            quantityTextView.setText(String.valueOf(NumberFormat.getNumberInstance(Locale.US)
+                    .format(quantity)));
+        }
     }
 
     private View.OnClickListener orderButtonListener = new View.OnClickListener() {

@@ -92,6 +92,7 @@
                 android:id="@+id/item_quantity_textView"
                 android:gravity="center_vertical"
                 style="@style/EditorFieldStyle"
+                android:textColor="@android:color/black"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 tools:text="0"/>
@@ -141,7 +142,7 @@
 
                 <Button
                     android:id="@+id/order_button"
-                    android:layout_width="68dp"
+                    android:layout_width="80dp"
                     android:layout_height="48dp"
                     android:text="@string/order"/>
             </LinearLayout>
