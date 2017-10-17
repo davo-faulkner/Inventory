@@ -133,6 +133,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
         if (currentItemUri == null) {
             MenuItem deleteMenuItem = menu.findItem(R.id.action_delete);
             deleteMenuItem.setVisible(false);
@@ -149,7 +150,7 @@ public class EditorActivity extends AppCompatActivity implements
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
                 return true;
-            case R.id.home:
+            case android.R.id.home:
                 if (!itemHasChanged) {
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
