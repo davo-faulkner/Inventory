@@ -31,9 +31,8 @@ public class CatalogActivity extends AppCompatActivity implements
     private Cursor items;
 
     private RecyclerView recyclerView;
-    private RecyclerAdapter itemRecyclerAdapter;
+    private ItemCursorAdapter itemCursorAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
     private TextView emptyStateTextView;
 
     @Override
@@ -44,14 +43,11 @@ public class CatalogActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-//        recyclerView.setVisibility(View.GONE);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
         emptyStateTextView = (TextView) findViewById(R.id.empty_view);
-        emptyStateTextView.setText(R.string.no_items_found);
-        emptyStateTextView.setVisibility(View.GONE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
