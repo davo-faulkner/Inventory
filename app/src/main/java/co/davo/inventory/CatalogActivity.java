@@ -61,18 +61,7 @@ public class CatalogActivity extends AppCompatActivity implements
 
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getLoaderManager().initLoader(ITEM_LOADER, null, this);
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        getLoaderManager().initLoader(ITEM_LOADER, null, this);
-    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
