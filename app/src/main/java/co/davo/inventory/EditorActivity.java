@@ -36,6 +36,7 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final int EXISTING_ITEM_LOADER = 0;
+    private static final String INSTANCE_KEY_QUANTITY = "quantity";
     private Uri currentItemUri;
     private EditText nameEditText;
     private EditText priceEditText;
@@ -59,10 +60,6 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            quantity = savedInstanceState.getInt("quantity");
-            displayQuantity();
-        }
         setContentView(R.layout.activity_editor);
 
         Intent intent = getIntent();
@@ -83,7 +80,11 @@ public class EditorActivity extends AppCompatActivity implements
             setTitle(getString(R.string.editor_activity_title_new_item));
             invalidateOptionsMenu();
             originalQuantity = 0;
-            quantity = 0;
+            if (savedInstanceState != null) {
+                quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
+            } else {
+                quantity = 0;
+            }
             displayQuantity();
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_item));
@@ -100,7 +101,7 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("quantity", quantity);
+        outState.putInt(INSTANCE_KEY_QUANTITY, quantity);
         super.onSaveInstanceState(outState);
     }
 
