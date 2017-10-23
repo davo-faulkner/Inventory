@@ -283,7 +283,7 @@ public class EditorActivity extends AppCompatActivity implements
             quantityTextView.setText(String.valueOf(NumberFormat.getNumberInstance(Locale.US)
                     .format(quantity)));
         }
-        //TODO Fix this, Davo
+        //TODO Fix this number format, Davo
     }
 
     private View.OnClickListener orderButtonListener = new View.OnClickListener() {
