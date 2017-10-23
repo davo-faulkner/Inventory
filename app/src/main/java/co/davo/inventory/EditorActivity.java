@@ -7,9 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.icu.text.NumberFormat;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
@@ -25,7 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
+import java.text.NumberFormat;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
@@ -279,11 +277,12 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void displayQuantity() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            quantityTextView.setText(String.valueOf(NumberFormat.getNumberInstance(Locale.US)
-                    .format(quantity)));
-        }
-        //TODO Fix this number format, Davo
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            quantityTextView.setText(String.valueOf(NumberFormat.getNumberInstance(Locale.US)
+//                    .format(quantity)));
+//        }
+        String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
+        quantityTextView.setText(quantityString);
     }
 
     private View.OnClickListener orderButtonListener = new View.OnClickListener() {
