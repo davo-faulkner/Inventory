@@ -277,10 +277,6 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void displayQuantity() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            quantityTextView.setText(String.valueOf(NumberFormat.getNumberInstance(Locale.US)
-//                    .format(quantity)));
-//        }
         String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
         quantityTextView.setText(quantityString);
     }
