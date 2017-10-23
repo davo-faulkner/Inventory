@@ -82,6 +82,8 @@ public class EditorActivity extends AppCompatActivity implements
             originalQuantity = 0;
             if (savedInstanceState != null) {
                 quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
+                Toast.makeText(this, "Restored quantity = " + quantity, Toast.LENGTH_SHORT).show();
+                //TODO Give same treatment as above to edited item
             } else {
                 quantity = 0;
             }
