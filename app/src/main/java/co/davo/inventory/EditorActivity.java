@@ -59,6 +59,10 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            quantity = savedInstanceState.getInt("quantity");
+            displayQuantity();
+        }
         setContentView(R.layout.activity_editor);
 
         Intent intent = getIntent();
@@ -92,6 +96,12 @@ public class EditorActivity extends AppCompatActivity implements
         quantityPlusButton.setOnTouchListener(touchListener);
         orderQuantityEditText.setOnTouchListener(touchListener);
         orderButton.setOnTouchListener(touchListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("quantity", quantity);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
