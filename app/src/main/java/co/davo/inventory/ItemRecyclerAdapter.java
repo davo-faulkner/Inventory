@@ -24,6 +24,13 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
+        int id = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
+        int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
+        int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
+        int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
+
+        String nameString = cursor.getString(nameColumnIndex);
+
         //TODO Davo, continue here
     }
     @Override
