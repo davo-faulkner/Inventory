@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -30,14 +31,14 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         private TextView nameTextView;
         private TextView priceTextView;
         private TextView quantityTextView;
-        //TODO Davo, Add Sale Button
+        private Button saleButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.nameTextView = (TextView) itemView.findViewById(R.id.name_textView);
             this.priceTextView = (TextView) itemView. findViewById(R.id.price_textView);
             this.quantityTextView = (TextView) itemView.findViewById(R.id.quantity_textView);
-            //TODO Davo, Add Sale Button
+            this.saleButton = (Button) itemView.findViewById(R.id.sale_button);
         }
         @Override
         public void onClick(View v) {
