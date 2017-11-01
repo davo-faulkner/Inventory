@@ -1,12 +1,17 @@
 package co.davo.inventory;
 
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 /**
  * Created by Davo on 11/1/2017.
@@ -19,7 +24,7 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
-
+        //TODO Davo, continue here
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,7 +47,13 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         }
         @Override
         public void onClick(View v) {
-            //TODO Davo, Continue here after researching
+            Context context = v.getContext();
+            int itemPosition = getAdapterPosition();
+            Intent intent = new Intent(context, EditorActivity.class);
+            Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,
+                    itemPosition);
+            intent.setData(currentItemUri);
+            context.startActivity(intent);
         }
     }
 }
