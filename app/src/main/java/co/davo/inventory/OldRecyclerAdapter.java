@@ -19,10 +19,10 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  * Created by Davo on 9/18/2017.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemHolder> {
+public class OldRecyclerAdapter extends RecyclerView.Adapter<OldRecyclerAdapter.ItemHolder> {
     private static Cursor items;
 
-    public RecyclerAdapter(Cursor items) {
+    public OldRecyclerAdapter(Cursor items) {
         this.items = items;
         int itemsCount = items.getCount();
     }
