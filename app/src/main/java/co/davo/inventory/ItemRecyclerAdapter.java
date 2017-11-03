@@ -30,7 +30,13 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
 
         String nameString = cursor.getString(nameColumnIndex);
+        int quantity = cursor.getInt(quantityColumnIndex);
+        int priceInt = cursor.getInt(priceColumnIndex);
+        float price = priceInt / 100;
 
+        holder.nameTextView.setText(nameString);
+        holder.priceTextView.setText("$" + price);
+        holder.quantityTextView.setText("" + quantity);
         //TODO Davo, continue here
     }
     @Override

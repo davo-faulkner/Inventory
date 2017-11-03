@@ -40,7 +40,6 @@ public class CatalogActivity extends AppCompatActivity implements
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(this);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
         emptyStateTextView = (TextView) findViewById(R.id.empty_view);
@@ -54,7 +53,7 @@ public class CatalogActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
-
+        recyclerView.setAdapter(itemRecyclerAdapter);
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
     }
 
@@ -97,23 +96,15 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.getCount() > 0) {
-            int dataCount = data.getCount();
-            recyclerView.setVisibility(View.VISIBLE);
-            this.items = data;
-            int itemsCount = items.getCount();
-            //itemRecyclerAdapter = new itemRecyclerAdapter(items);
-        } else {
+        if (data.moveToFirst()) {
             emptyStateTextView.setVisibility(View.VISIBLE);
+        } else {
+            emptyStateTextView.setVisibility(View.GONE);
         }
+        itemRecyclerAdapter.swapCursor(data);
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-//        if (items.getCount() > 0 && items != null) {
-//            recyclerView.setVisibility(View.VISIBLE);
-//            itemRecyclerAdapter = new OldRecyclerAdapter(items);
-//        } else {
-//            emptyStateTextView.setVisibility(View.VISIBLE);
-//        }
+        itemRecyclerAdapter.swapCursor(null);
     }
 }
