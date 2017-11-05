@@ -5,7 +5,11 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
@@ -24,6 +28,11 @@ public class ItemCursorAdapter extends CursorAdapter {
     }
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        TextView nameTextView = (TextView) view.findViewById(R.id.name_textView);
+        TextView priceTextView = (TextView) view.findViewById(R.id.price_textView);
+        TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_textView);
+        Button saleButton = (Button) view.findViewById(R.id.sale_button);
 
+        
     }
 }
