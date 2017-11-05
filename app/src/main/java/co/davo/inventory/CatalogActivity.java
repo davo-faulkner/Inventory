@@ -52,6 +52,9 @@ public class CatalogActivity extends AppCompatActivity implements
 
         itemListView.setEmptyView(emptyStateTextView);
 
+        itemCursorAdapter = new ItemCursorAdapter(this, null);
+        itemListView.setAdapter(itemCursorAdapter);
+
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 /**
@@ -19,8 +17,8 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 public class ItemCursorAdapter extends CursorAdapter {
 
-    public ItemCursorAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
+    public ItemCursorAdapter(Context context, Cursor c) {
+        super(context, c, 0);
     }
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
