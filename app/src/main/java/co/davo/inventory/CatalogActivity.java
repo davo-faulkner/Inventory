@@ -53,6 +53,7 @@ public class CatalogActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+        itemRecyclerAdapter = new ItemRecyclerAdapter(items);
         recyclerView.setAdapter(itemRecyclerAdapter);
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
     }
