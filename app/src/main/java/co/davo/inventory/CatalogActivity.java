@@ -1,19 +1,21 @@
 package co.davo.inventory;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
@@ -24,12 +26,7 @@ public class CatalogActivity extends AppCompatActivity implements
     public static final String LOG_TAG = CatalogActivity.class.getName();
     private static final int ITEM_LOADER = 0;
 
-    private Cursor items;
-
-    private RecyclerView recyclerView;
-    private ItemRecyclerAdapter itemRecyclerAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private TextView emptyStateTextView;
+    ItemCursorAdapter itemCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +35,35 @@ public class CatalogActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        ListView itemListView = (ListView) findViewById(R.id.list);
 
-        emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        View emptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                Intent intent = new Intent(CatalogActivity.this,
+                        EditorActivity.class);
                 startActivity(intent);
             }
         });
-        recyclerView.setAdapter(itemRecyclerAdapter);
+
+        itemListView.setEmptyView(emptyStateTextView);
+
+        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(CatalogActivity.this,
+                        EditorActivity.class);
+                Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+                intent.setData(currentItemUri);
+                startActivity(intent);
+            }
+        });
+
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
     }
 
@@ -96,15 +106,10 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.moveToFirst()) {
-            emptyStateTextView.setVisibility(View.VISIBLE);
-        } else {
-            emptyStateTextView.setVisibility(View.GONE);
-        }
-        itemRecyclerAdapter.swapCursor(data);
+        itemCursorAdapter.swapCursor(data);
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        itemRecyclerAdapter.swapCursor(null);
+        itemCursorAdapter.swapCursor(null);
     }
 }
