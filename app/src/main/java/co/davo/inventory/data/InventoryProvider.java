@@ -28,8 +28,8 @@ public class InventoryProvider extends ContentProvider {
     static {
         sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_INVENTORY,
                 ITEMS);
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_INVENTORY
-                + "/#", ITEM_ID);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,
+                InventoryContract.PATH_INVENTORY + "/#", ITEM_ID);
     }
 
     private InventoryDbHelper mDbHelper;
