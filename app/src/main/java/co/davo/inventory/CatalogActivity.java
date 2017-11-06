@@ -10,13 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
@@ -32,12 +33,11 @@ public class CatalogActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         ListView itemListView = (ListView) findViewById(R.id.list);
 
-        View emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        TextView emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        emptyStateTextView.setText(R.string.no_items_found);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
