@@ -20,14 +20,16 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  */
 
 public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapter.ViewHolder> {
-    int id;
+    long id;
+    Cursor cursor;
 
     public ItemRecyclerAdapter(Cursor c) {
         super(c);
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
-        id = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
+        id = cursor.getLong(cursor.getColumnIndex(InventoryEntry._ID));
+        this.cursor = cursor;
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
         int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
@@ -69,9 +71,12 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         public void onClick(View v) {
             Context context = v.getContext();
             int itemPosition = getAdapterPosition();
+            cursor.moveToPosition(itemPosition);
+            id = cursor.getLong(cursor.getColumnIndex(InventoryEntry._ID));
             Intent intent = new Intent(context, EditorActivity.class);
             Uri currentItemUri =
                     ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+            Toast.makeText(context, "id = " + id, Toast.LENGTH_SHORT).show();
             Toast.makeText(context, currentItemUri.toString(), Toast.LENGTH_SHORT).show();
             intent.setData(currentItemUri);
             context.startActivity(intent);
