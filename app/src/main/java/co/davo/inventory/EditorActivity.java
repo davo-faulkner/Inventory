@@ -333,12 +333,6 @@ public class EditorActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
-        Toast.makeText(this, "cursor.getCount() = " + cursor.getCount(),
-                Toast.LENGTH_SHORT).show();
-
-        Toast.makeText(this, currentItemUri.toString(), Toast.LENGTH_SHORT).show();
-
         if (cursor == null || cursor.getCount() < 1) {
             return;
         }
@@ -357,8 +351,6 @@ public class EditorActivity extends AppCompatActivity implements
             nameEditText.setText(name);
             quantityTextView.setText(Integer.toString(originalQuantity));
             priceEditText.setText(Float.toString(priceFloat));
-
-            Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
