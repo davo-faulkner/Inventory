@@ -40,6 +40,8 @@ public class CatalogActivity extends AppCompatActivity implements
         recyclerView.setLayoutManager(layoutManager);
 
         emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        emptyStateTextView.setVisibility(View.GONE);
+        emptyStateTextView.setText(R.string.no_items_found);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +97,7 @@ public class CatalogActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.moveToFirst()) {
+        if (!data.moveToFirst()) {
             emptyStateTextView.setVisibility(View.VISIBLE);
         } else {
             emptyStateTextView.setVisibility(View.GONE);

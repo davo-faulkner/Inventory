@@ -24,7 +24,7 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/textColor"
         android:textStyle="bold"
-        tools:text="No articles found." />
+        tools:text="No items found." />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
