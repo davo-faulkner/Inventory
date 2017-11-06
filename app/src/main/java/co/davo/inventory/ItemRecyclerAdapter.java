@@ -33,11 +33,13 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
 
         String nameString = cursor.getString(nameColumnIndex);
         int quantity = cursor.getInt(quantityColumnIndex);
-        int priceInt = cursor.getInt(priceColumnIndex);
-        float price = priceInt / 100;
+        int itemPriceInt = cursor.getInt(priceColumnIndex);
+        float itemPriceFloat = itemPriceInt;
+        itemPriceFloat = itemPriceFloat / 100;
+        String itemPrice = String.format("%.02f", itemPriceFloat);
 
         holder.nameTextView.setText(nameString);
-        holder.priceTextView.setText("$" + price);
+        holder.priceTextView.setText("$" + itemPrice);
         holder.quantityTextView.setText("" + quantity);
         //TODO Davo, continue here
     }
