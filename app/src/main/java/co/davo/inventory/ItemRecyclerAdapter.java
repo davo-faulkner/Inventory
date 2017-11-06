@@ -20,13 +20,14 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  */
 
 public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapter.ViewHolder> {
+    int id;
 
     public ItemRecyclerAdapter(Cursor c) {
         super(c);
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
-        int id = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
+        id = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
         int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
@@ -69,8 +70,9 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
             Context context = v.getContext();
             int itemPosition = getAdapterPosition();
             Intent intent = new Intent(context, EditorActivity.class);
-            Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,
-                    itemPosition + 1);
+            Uri currentItemUri =
+                    ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+            Toast.makeText(context, currentItemUri.toString(), Toast.LENGTH_SHORT).show();
             intent.setData(currentItemUri);
             context.startActivity(intent);
         }

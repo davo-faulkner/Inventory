@@ -63,6 +63,8 @@ public class EditorActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         currentItemUri = intent.getData();
 
+        Toast.makeText(this, "Editor URI " + currentItemUri, Toast.LENGTH_SHORT).show();
+
         nameEditText = (EditText) findViewById(R.id.item_name_editText);
         priceEditText = (EditText) findViewById(R.id.item_price_editText);
         quantityMinusButton = (Button) findViewById(R.id.quantity_minus_button);
