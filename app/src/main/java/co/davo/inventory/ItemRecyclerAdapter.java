@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 /**
@@ -57,6 +59,8 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
             this.priceTextView = (TextView) itemView. findViewById(R.id.price_textView);
             this.quantityTextView = (TextView) itemView.findViewById(R.id.quantity_textView);
             this.saleButton = (Button) itemView.findViewById(R.id.sale_button);
+
+            itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
