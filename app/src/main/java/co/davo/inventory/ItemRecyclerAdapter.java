@@ -68,7 +68,7 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
             int itemPosition = getAdapterPosition();
             Intent intent = new Intent(context, EditorActivity.class);
             Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,
-                    itemPosition);
+                    itemPosition + 1);
             intent.setData(currentItemUri);
             context.startActivity(intent);
         }
