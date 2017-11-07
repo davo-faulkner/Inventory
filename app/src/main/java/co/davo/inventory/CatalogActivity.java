@@ -26,6 +26,7 @@ public class CatalogActivity extends AppCompatActivity implements
     private static final int ITEM_LOADER = 0;
 
     private Cursor items;
+    private boolean hasEmptyState;
 
     private RecyclerView recyclerView;
     private ItemRecyclerAdapter itemRecyclerAdapter;
@@ -129,10 +130,23 @@ public class CatalogActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (!data.moveToFirst()) {
             emptyStateTextView.setVisibility(View.VISIBLE);
+            hasEmptyState = true;
         } else {
             emptyStateTextView.setVisibility(View.GONE);
+            hasEmptyState = false;
         }
+        invalidateOptionsMenu();
         itemRecyclerAdapter.swapCursor(data);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (hasEmptyState) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete_all_items);
+            menuItem.setVisible(false);
+        }
+        return true;
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
