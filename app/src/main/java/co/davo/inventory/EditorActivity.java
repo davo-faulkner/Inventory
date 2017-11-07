@@ -90,6 +90,9 @@ public class EditorActivity extends AppCompatActivity implements
             displayQuantity();
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_item));
+            if (savedInstanceState != null) {
+                quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
+            }
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
         }
 
@@ -335,6 +338,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Toast.makeText(this, "onLoadFinished() Called", Toast.LENGTH_SHORT).show();
         if (cursor == null || cursor.getCount() < 1) {
             return;
         }
