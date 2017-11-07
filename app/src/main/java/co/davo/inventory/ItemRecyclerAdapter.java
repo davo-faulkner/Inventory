@@ -1,6 +1,7 @@
 package co.davo.inventory;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
@@ -20,7 +22,6 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  */
 
 public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapter.ViewHolder> {
-    int quantity;
     long id;
     Cursor cursor;
 
@@ -28,15 +29,15 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         super(c);
     }
     @Override
-    public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
+    public void onBindViewHolder(final ViewHolder holder, final Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(InventoryEntry._ID));
         this.cursor = cursor;
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
-        int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
+        final int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
 
         String nameString = cursor.getString(nameColumnIndex);
-        quantity = cursor.getInt(quantityColumnIndex);
+        int quantity = cursor.getInt(quantityColumnIndex);
         int itemPriceInt = cursor.getInt(priceColumnIndex);
         float itemPriceFloat = itemPriceInt;
         itemPriceFloat = itemPriceFloat / 100;
@@ -49,9 +50,26 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
 
             @Override
             public void onClick(View v) {
-                Log.d("ItemRecyclerAdapter", "Click");
-                Uri currentItemUri =
-                        ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+                cursor.moveToPosition(holder.getAdapterPosition());
+                long itemId = cursor.getLong(cursor.getColumnIndex(InventoryEntry._ID));
+                int itemQuantity = cursor.getInt(quantityColumnIndex);
+                Toast.makeText(v.getContext(), "Click on id " + itemId,
+                        Toast.LENGTH_SHORT).show();
+                if (itemQuantity > 0) {
+                    Uri currentItemUri =
+                            ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, itemId);
+                    ContentValues values = new ContentValues();
+                    itemQuantity--;
+                    values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, itemQuantity);
+                    v.getContext().getContentResolver().update(
+                            currentItemUri,
+                            values,
+                            null,
+                            null);
+                } else {
+                    Toast.makeText(v.getContext(), "You are out of this item.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
         //TODO Davo, continue here
