@@ -353,12 +353,16 @@ public class EditorActivity extends AppCompatActivity implements
 
             String name = cursor.getString(nameColumnIndex);
             originalQuantity = cursor.getInt(quantityColumnIndex);
+            quantity = originalQuantity;
             int priceInt = cursor.getInt(priceColumnIndex);
             float priceFloatInflated = (float) priceInt;
             float priceFloat = priceFloatInflated / 100;
 
             nameEditText.setText(name);
-            quantityTextView.setText(Integer.toString(originalQuantity));
+            if (configurationHasChanged) {
+                quantity = configurationChangeQuantity;
+            }
+            displayQuantity();
             priceEditText.setText(String.format("%.02f", priceFloat));
         }
     }
