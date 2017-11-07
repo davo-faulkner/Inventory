@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,11 +75,15 @@ public class CatalogActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete_all_items) {
+            deleteAllItems();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void deleteAllItems() {
+        getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
     }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
