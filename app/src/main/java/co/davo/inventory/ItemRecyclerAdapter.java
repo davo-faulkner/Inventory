@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +52,6 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
                 cursor.moveToPosition(holder.getAdapterPosition());
                 long itemId = cursor.getLong(cursor.getColumnIndex(InventoryEntry._ID));
                 int itemQuantity = cursor.getInt(quantityColumnIndex);
-                Toast.makeText(v.getContext(), "Click on id " + itemId,
-                        Toast.LENGTH_SHORT).show();
                 if (itemQuantity > 0) {
                     Uri currentItemUri =
                             ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, itemId);
@@ -72,7 +69,6 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
                 }
             }
         });
-        //TODO Davo, continue here
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
