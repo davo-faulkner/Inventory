@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
@@ -20,6 +20,7 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  */
 
 public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapter.ViewHolder> {
+    int quantity;
     long id;
     Cursor cursor;
 
@@ -35,7 +36,7 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
 
         String nameString = cursor.getString(nameColumnIndex);
-        int quantity = cursor.getInt(quantityColumnIndex);
+        quantity = cursor.getInt(quantityColumnIndex);
         int itemPriceInt = cursor.getInt(priceColumnIndex);
         float itemPriceFloat = itemPriceInt;
         itemPriceFloat = itemPriceFloat / 100;
@@ -44,6 +45,15 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
         holder.nameTextView.setText(nameString);
         holder.priceTextView.setText("$" + itemPrice);
         holder.quantityTextView.setText("" + quantity);
+        holder.saleButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.d("ItemRecyclerAdapter", "Click");
+                Uri currentItemUri =
+                        ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+            }
+        });
         //TODO Davo, continue here
     }
     @Override
