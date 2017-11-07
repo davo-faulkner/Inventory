@@ -41,11 +41,13 @@ public class EditorActivity extends AppCompatActivity implements
     private Button quantityMinusButton;
     private TextView quantityTextView;
     private int originalQuantity;
+    private int configurationChangeQuantity;
     private int quantity;
     private Button quantityPlusButton;
     private EditText orderQuantityEditText;
     private Button orderButton;
     private boolean itemHasChanged = false;
+    private boolean configurationHasChanged;
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
@@ -63,8 +65,6 @@ public class EditorActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         currentItemUri = intent.getData();
 
-        Toast.makeText(this, "Editor URI " + currentItemUri, Toast.LENGTH_SHORT).show();
-
         nameEditText = (EditText) findViewById(R.id.item_name_editText);
         priceEditText = (EditText) findViewById(R.id.item_price_editText);
         quantityMinusButton = (Button) findViewById(R.id.quantity_minus_button);
@@ -76,13 +76,19 @@ public class EditorActivity extends AppCompatActivity implements
         orderButton = (Button) findViewById(R.id.order_button);
         orderButton.setOnClickListener(orderButtonListener);
 
+        if (savedInstanceState != null) {
+            configurationHasChanged = true;
+            configurationChangeQuantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
+        } else {
+            configurationHasChanged = false;
+        }
+
         if (currentItemUri == null) {
             setTitle(getString(R.string.editor_activity_title_new_item));
             invalidateOptionsMenu();
             originalQuantity = 0;
-            if (savedInstanceState != null) {
-                quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
-                Toast.makeText(this, "Restored quantity = " + quantity, Toast.LENGTH_SHORT).show();
+            if (configurationHasChanged) {
+                quantity = configurationChangeQuantity;
                 //TODO Give same treatment as above to edited item
             } else {
                 quantity = 0;
@@ -90,9 +96,6 @@ public class EditorActivity extends AppCompatActivity implements
             displayQuantity();
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_item));
-            if (savedInstanceState != null) {
-                quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
-            }
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
         }
 

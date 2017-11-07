@@ -76,8 +76,6 @@ public class ItemRecyclerAdapter extends CursorRecyclerAdapter<ItemRecyclerAdapt
             Intent intent = new Intent(context, EditorActivity.class);
             Uri currentItemUri =
                     ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
-            Toast.makeText(context, "id = " + id, Toast.LENGTH_SHORT).show();
-            Toast.makeText(context, currentItemUri.toString(), Toast.LENGTH_SHORT).show();
             intent.setData(currentItemUri);
             context.startActivity(intent);
         }
