@@ -224,15 +224,18 @@ public class EditorActivity extends AppCompatActivity implements
             Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
 
             if (newUri == null) {
-                Toast.makeText(this, "Error with saving item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error with saving item",
+                        Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
             }
         } else {
-            int rowsAffected = getContentResolver().update(currentItemUri, values, null, null);
+            int rowsAffected = getContentResolver().update(currentItemUri, values, null,
+                    null);
 
             if (rowsAffected == 0) {
-                Toast.makeText(this, "Error with saving item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error with saving item",
+                        Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
             }
@@ -265,9 +268,11 @@ public class EditorActivity extends AppCompatActivity implements
 
     private void deleteItem() {
         if (currentItemUri != null) {
-            int rowsDeleted = getContentResolver().delete(currentItemUri, null, null);
+            int rowsDeleted = getContentResolver().delete(currentItemUri, null,
+                    null);
             if (rowsDeleted == 0) {
-                Toast.makeText(this, "Error with deleting item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error with deleting item",
+                        Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
@@ -280,7 +285,8 @@ public class EditorActivity extends AppCompatActivity implements
                 Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
         displayQuantity();
         orderQuantityEditText.setText("");
-        Toast.makeText(this, "Order placed. Save changes to receive items into inventory.",
+        Toast.makeText(this,
+                "Order placed. Save changes to receive items into inventory.",
                 Toast.LENGTH_LONG).show();
     }
 
