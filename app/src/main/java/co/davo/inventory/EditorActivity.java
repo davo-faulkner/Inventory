@@ -281,6 +281,7 @@ public class EditorActivity extends AppCompatActivity implements
 
     private void placeOrder() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_SUBJECT, "New " +
                 nameEditText.getText().toString().trim() + " Order");
         if (intent.resolveActivity(getPackageManager()) != null) {
