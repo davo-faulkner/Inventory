@@ -104,7 +104,6 @@ public class EditorActivity extends AppCompatActivity implements
         quantityMinusButton.setOnTouchListener(touchListener);
         quantityPlusButton.setOnTouchListener(touchListener);
         orderQuantityEditText.setOnTouchListener(touchListener);
-        orderButton.setOnTouchListener(touchListener);
     }
 
     @Override
@@ -281,13 +280,12 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void placeOrder() {
-        quantity = quantity +
-                Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
-        displayQuantity();
-        orderQuantityEditText.setText("");
-        Toast.makeText(this,
-                "Order placed. Save changes to receive items into inventory.",
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "New " +
+                nameEditText.getText().toString().trim() + " Order");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     private void displayQuantity() {
