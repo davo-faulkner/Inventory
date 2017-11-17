@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,9 +58,8 @@ public class CatalogActivity extends AppCompatActivity implements
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(CatalogActivity.this, "Click",
-                        Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.d("click: ", "CLICK!");
                 Intent intent = new Intent(CatalogActivity.this,
                         EditorActivity.class);
                 Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);

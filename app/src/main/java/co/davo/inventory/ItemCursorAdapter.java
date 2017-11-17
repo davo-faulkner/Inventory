@@ -29,7 +29,7 @@ public class ItemCursorAdapter extends CursorAdapter {
         TextView nameTextView = (TextView) view.findViewById(R.id.name_textView);
         TextView priceTextView = (TextView) view.findViewById(R.id.price_textView);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_textView);
-        Button saleButton = (Button) view.findViewById(R.id.sale_button);
+//        Button saleButton = (Button) view.findViewById(R.id.sale_button);
 
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
