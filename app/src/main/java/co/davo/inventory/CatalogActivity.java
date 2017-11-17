@@ -58,7 +58,8 @@ public class CatalogActivity extends AppCompatActivity implements
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(CatalogActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CatalogActivity.this, "Click",
+                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CatalogActivity.this,
                         EditorActivity.class);
                 Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
