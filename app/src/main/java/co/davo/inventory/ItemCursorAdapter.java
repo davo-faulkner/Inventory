@@ -39,7 +39,7 @@ public class ItemCursorAdapter extends CursorAdapter {
         int itemPriceInt = cursor.getInt(priceColumnIndex);
         float itemPriceFloat = itemPriceInt;
         itemPriceFloat = itemPriceFloat / 100;
-        String itemPrice = "" + itemPriceFloat;
+        String itemPrice = "$ " + itemPriceFloat;
         String itemQuantity = "" + cursor.getInt(quantityColumnIndex);
 
         nameTextView.setText(itemName);
