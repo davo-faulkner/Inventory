@@ -24,26 +24,27 @@
             style="@style/textview_style"
             android:layout_marginBottom="0dp"
             android:textSize="18sp"
-            android:textStyle="italic"
             tools:text="Price"/>
-
-        <TextView
-            android:id="@+id/quantity_textView"
-            style="@style/textview_style"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
-            tools:text="Quantity"/>
 
     </LinearLayout>
 
-    <!--<Button-->
-        <!--android:id="@+id/sale_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Sale"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_marginRight="16dp"-->
-        <!--android:layout_marginLeft="12dp"/>-->
+    <TextView
+        android:id="@+id/quantity_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textview_style"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:textSize="22sp"
+        tools:text="Quantity"/>
+
+    <Button
+        android:id="@+id/sale_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sale"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="12dp"/>
 
 </LinearLayout>
