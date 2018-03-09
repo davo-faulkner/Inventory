@@ -35,7 +35,7 @@
         style="@style/textview_style"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="8dp"
-        android:textSize="22sp"
+        android:textSize="28sp"
         tools:text="5"/>
 
     <Button
