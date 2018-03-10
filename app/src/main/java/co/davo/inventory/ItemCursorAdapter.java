@@ -1,8 +1,10 @@
 package co.davo.inventory;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,10 +37,12 @@ public class ItemCursorAdapter extends CursorAdapter {
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_textView);
         Button saleButton = (Button) view.findViewById(R.id.sale_button);
 
+        int idColumnIndex = cursor.getColumnIndex(InventoryEntry._ID);
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
 
+        final int itemId = cursor.getInt(idColumnIndex);
         String itemName = cursor.getString(nameColumnIndex);
         int itemPriceInt = cursor.getInt(priceColumnIndex);
         float itemPriceFloat = itemPriceInt;
@@ -55,20 +59,16 @@ public class ItemCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 Log.e("saleButton", "Sale Button clicked!");
-                itemQuantity--;
+                if (itemQuantity > 0) {
+                    itemQuantity--;
+                }
 
                 ContentValues values = new ContentValues();
                 values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, itemQuantity);
-//TODO Davo, Finish the following commented code
-//                int rowsAffected = context.getContentResolver().update(currentItemUri, values,
-//                        null,null);
-//
-//                if (rowsAffected == 0) {
-//                    Toast.makeText(this, "Error with saving item",
-//                            Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
-//                }
+
+                Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, itemId);
+                int rowsAffected = context.getContentResolver().update(currentItemUri, values,
+                        null,null);
             }
         });
     }
