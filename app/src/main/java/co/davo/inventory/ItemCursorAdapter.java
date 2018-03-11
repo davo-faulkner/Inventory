@@ -61,14 +61,18 @@ public class ItemCursorAdapter extends CursorAdapter {
                 Log.e("saleButton", "Sale Button clicked!");
                 if (itemQuantity[0] > 0) {
                     itemQuantity[0]--;
+
+                    ContentValues values = new ContentValues();
+                    values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, itemQuantity[0]);
+
+                    Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,
+                            itemId);
+                    context.getContentResolver().update(currentItemUri, values,
+                            null, null);
+                } else {
+                    Toast.makeText(context, "Click Item to order more",
+                            Toast.LENGTH_SHORT).show();
                 }
-
-                ContentValues values = new ContentValues();
-                values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, itemQuantity[0]);
-
-                Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, itemId);
-                context.getContentResolver().update(currentItemUri, values,
-                        null,null);
             }
         });
     }
