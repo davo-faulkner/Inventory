@@ -70,7 +70,7 @@ public class ItemCursorAdapter extends CursorAdapter {
                     context.getContentResolver().update(currentItemUri, values,
                             null, null);
                 } else {
-                    Toast.makeText(context, "Click Item to Change Quantity or Order More",
+                    Toast.makeText(context, "Tap Item to Change Quantity & Order More",
                             Toast.LENGTH_LONG).show();
                 }
             }
