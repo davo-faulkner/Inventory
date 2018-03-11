@@ -69,10 +69,16 @@ public class ItemCursorAdapter extends CursorAdapter {
                             itemId);
                     context.getContentResolver().update(currentItemUri, values,
                             null, null);
+                    if (itemQuantity[0] == 0) {
+                        showSaleButtonZeroQuantityToast();
+                    }
                 } else {
-                    Toast.makeText(context, "Tap Item to Change Quantity & Order More",
-                            Toast.LENGTH_LONG).show();
+                    showSaleButtonZeroQuantityToast();
                 }
+            }
+            private void showSaleButtonZeroQuantityToast() {
+                Toast.makeText(context, "Tap Item to Change Quantity & Order More",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
