@@ -21,8 +21,6 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  */
 
 public class ItemCursorAdapter extends CursorAdapter {
-    int itemQuantity;
-
     public ItemCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
     }
@@ -32,6 +30,8 @@ public class ItemCursorAdapter extends CursorAdapter {
     }
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
+        final int[] itemQuantity = new int[1];
+
         TextView nameTextView = (TextView) view.findViewById(R.id.name_textView);
         TextView priceTextView = (TextView) view.findViewById(R.id.price_textView);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_textView);
@@ -48,8 +48,8 @@ public class ItemCursorAdapter extends CursorAdapter {
         float itemPriceFloat = itemPriceInt;
         itemPriceFloat = itemPriceFloat / 100;
         String itemPrice = "$ " + itemPriceFloat;
-        itemQuantity = cursor.getInt((quantityColumnIndex));
-        String itemQuantityString = "" + itemQuantity;
+        itemQuantity[0] = cursor.getInt((quantityColumnIndex));
+        String itemQuantityString = "" + itemQuantity[0];
 
         nameTextView.setText(itemName);
         priceTextView.setText(itemPrice);
@@ -59,15 +59,15 @@ public class ItemCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 Log.e("saleButton", "Sale Button clicked!");
-                if (itemQuantity > 0) {
-                    itemQuantity--;
+                if (itemQuantity[0] > 0) {
+                    itemQuantity[0]--;
                 }
 
                 ContentValues values = new ContentValues();
-                values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, itemQuantity);
+                values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, itemQuantity[0]);
 
                 Uri currentItemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, itemId);
-                int rowsAffected = context.getContentResolver().update(currentItemUri, values,
+                context.getContentResolver().update(currentItemUri, values,
                         null,null);
             }
         });
