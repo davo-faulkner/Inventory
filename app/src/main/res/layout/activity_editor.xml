@@ -115,9 +115,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:text="@string/category_image"
-            style="@style/CategoryStyle" />
+        <ImageView
+            android:layout_height="96dp"
+            android:layout_width="96dp"
+            android:layout_marginRight="20dp"/>
 
         <LinearLayout
             android:layout_height="wrap_content"
@@ -129,19 +130,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/quantity_minus_button"
-                    android:layout_width="0dp"
+                    android:id="@+id/image_select_button"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:text="Select"
                     android:textStyle="bold"/>
 
                 <Button
-                    android:id="@+id/quantity_plus_button"
-                    android:layout_width="0dp"
+                    android:id="@+id/image_camera_button"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:text="Camera"
