@@ -137,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="Select"
+                    android:text="Select Photo"
                     android:textStyle="bold"/>
 
                 <Button
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="Camera"
+                    android:text="Take Picture"
                     android:textStyle="bold"/>
 
             </LinearLayout>

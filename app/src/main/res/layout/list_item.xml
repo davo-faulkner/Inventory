@@ -5,11 +5,16 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"/>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/name_textView"
@@ -32,6 +37,7 @@
         android:id="@+id/quantity_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         style="@style/textview_style"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="8dp"
