@@ -74,7 +74,11 @@ public class EditorActivity extends AppCompatActivity implements
         quantityTextView = (TextView) findViewById(R.id.item_quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         quantityPlusButton.setOnClickListener(plusButtonListener);
-
+        itemImage = (ImageView) findViewById(R.id.item_image);
+        imageSelectButton = (Button) findViewById(R.id.image_select_button);
+        imageSelectButton.setOnClickListener(selectPhotoButtonListener);
+        imageCameraButton = (Button) findViewById(R.id.image_camera_button);
+        imageCameraButton.setOnClickListener(takePictureButtonListener);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
         orderButton.setOnClickListener(orderButtonListener);
@@ -292,6 +296,22 @@ public class EditorActivity extends AppCompatActivity implements
         String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
         quantityTextView.setText(quantityString);
     }
+
+    private View.OnClickListener selectPhotoButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            //TODO Insert Select Photo code here.
+        }
+    };
+
+    private View.OnClickListener takePictureButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            //TODO Insert Take Picture code here.
+        }
+    };
 
     private View.OnClickListener orderButtonListener = new View.OnClickListener() {
         @Override

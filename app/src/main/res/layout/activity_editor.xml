@@ -116,6 +116,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/item_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginRight="30dp"
