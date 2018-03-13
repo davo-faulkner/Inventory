@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,9 @@ public class EditorActivity extends AppCompatActivity implements
     private int originalQuantity;
     private int quantity;
     private Button quantityPlusButton;
+    private ImageView itemImage;
+    private Button imageSelectButton;
+    private Button imageCameraButton;
     private EditText orderQuantityEditText;
     private Button orderButton;
     private boolean itemHasChanged = false;
@@ -70,6 +74,7 @@ public class EditorActivity extends AppCompatActivity implements
         quantityTextView = (TextView) findViewById(R.id.item_quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         quantityPlusButton.setOnClickListener(plusButtonListener);
+
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
         orderButton.setOnClickListener(orderButtonListener);
