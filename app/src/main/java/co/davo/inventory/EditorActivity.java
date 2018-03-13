@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -50,6 +51,8 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText orderQuantityEditText;
     private Button orderButton;
     private boolean itemHasChanged = false;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
@@ -309,9 +312,17 @@ public class EditorActivity extends AppCompatActivity implements
 
         @Override
         public void onClick(View v) {
+            dispatchTakePictureIntent();
             //TODO Insert Take Picture code here.
         }
     };
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
 
     private View.OnClickListener orderButtonListener = new View.OnClickListener() {
         @Override
