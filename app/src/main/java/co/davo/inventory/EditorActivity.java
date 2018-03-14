@@ -10,9 +10,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -26,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
@@ -54,6 +58,11 @@ public class EditorActivity extends AppCompatActivity implements
     private boolean itemHasChanged = false;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
+
+    private String currentPhotoPath;
+    private int idColumnIndex;
+    private int id;
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
@@ -321,7 +330,21 @@ public class EditorActivity extends AppCompatActivity implements
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "co.davo.inventory.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
         }
     }
 
@@ -332,6 +355,21 @@ public class EditorActivity extends AppCompatActivity implements
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             itemImage.setImageBitmap(imageBitmap);
         }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "JPEG_ID_" + id;
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     private View.OnClickListener orderButtonListener = new View.OnClickListener() {
@@ -391,10 +429,13 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         if (cursor.moveToFirst()) {
+
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
+            idColumnIndex = cursor.getColumnIndex(InventoryEntry._ID);
 
+            id = cursor.getInt(idColumnIndex);
             String name = cursor.getString(nameColumnIndex);
             originalQuantity = cursor.getInt(quantityColumnIndex);
             int priceInt = cursor.getInt(priceColumnIndex);
