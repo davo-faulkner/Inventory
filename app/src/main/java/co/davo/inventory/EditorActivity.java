@@ -80,9 +80,6 @@ public class EditorActivity extends AppCompatActivity implements
             originalQuantity = 0;
             if (savedInstanceState != null) {
                 quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
-                Toast.makeText(this, "Restored quantity = " + quantity,
-                        Toast.LENGTH_SHORT).show();
-                //TODO Give same treatment as above to edited item
             } else {
                 quantity = 0;
             }
@@ -90,14 +87,6 @@ public class EditorActivity extends AppCompatActivity implements
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_item));
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
-            if (savedInstanceState != null) {
-                quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
-                Toast.makeText(this, "Restored quantity = " + quantity,
-                        Toast.LENGTH_SHORT).show();
-                //TODO Give same treatment as above to edited item
-            } else {
-                quantity = originalQuantity;
-            }
             displayQuantity();
         }
 
@@ -288,8 +277,8 @@ public class EditorActivity extends AppCompatActivity implements
         String emailBody = "John,\n" +
                 "\n" +
                 "Can you please process an order for " + orderQuantity + " " +
-                nameEditText.getEditableText().toString().trim() + "s. I believe they are currently " +
-                "priced at $" +
+                nameEditText.getEditableText().toString().trim() + "s. I believe they are " +
+                "currently priced at $" +
                 priceEditText.getEditableText().toString().trim() + ".\n" +
                 "\n" +
                 "Thanks!";
@@ -370,14 +359,15 @@ public class EditorActivity extends AppCompatActivity implements
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
 
             String name = cursor.getString(nameColumnIndex);
-            quantity = cursor.getInt(quantityColumnIndex);
+            originalQuantity = cursor.getInt(quantityColumnIndex);
             int priceInt = cursor.getInt(priceColumnIndex);
             float priceFloatInflated = (float) priceInt;
             float priceFloat = priceFloatInflated / 100;
 
             nameEditText.setText(name);
-            quantityTextView.setText(Integer.toString(quantity));
+            quantityTextView.setText(Integer.toString(originalQuantity));
             priceEditText.setText(String.format("%.02f", priceFloat));
+            quantity = originalQuantity;
         }
     }
     @Override
