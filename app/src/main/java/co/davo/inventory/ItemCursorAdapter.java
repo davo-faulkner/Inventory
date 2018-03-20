@@ -47,12 +47,11 @@ public class ItemCursorAdapter extends CursorAdapter {
         int itemPriceInt = cursor.getInt(priceColumnIndex);
         float itemPriceFloat = itemPriceInt;
         itemPriceFloat = itemPriceFloat / 100;
-        String itemPrice = "$ " + itemPriceFloat;
         itemQuantity[0] = cursor.getInt((quantityColumnIndex));
         String itemQuantityString = "" + itemQuantity[0];
 
         nameTextView.setText(itemName);
-        priceTextView.setText(itemPrice);
+        priceTextView.setText("$" + String.format("%.02f", itemPriceFloat));
         quantityTextView.setText(itemQuantityString);
         saleButton.setOnClickListener(new View.OnClickListener() {
 
