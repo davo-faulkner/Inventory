@@ -9,7 +9,7 @@
     <string name="hint_item_price">Price</string>
     <string name="category_quantity">Current Quantity</string>
     <string name="category_order">Place Order</string>
-    <string name="order">Order</string>
+    <string name="order">Order More</string>
     <string name="hint_item_order_quantity">Quantity</string>
     <string name="no_items_found">No items found.</string>
     <string name="unsaved_changes_alert_message">Exit without saving?</string>

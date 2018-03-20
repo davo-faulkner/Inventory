@@ -130,8 +130,10 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/place_order_label_textview"
             android:text="@string/category_order"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:layout_height="wrap_content"
@@ -151,13 +153,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_item_order_quantity"
+                    android:visibility="invisible"
                     android:inputType="number"
                     style="@style/EditorFieldStyle"
                     android:layout_marginRight="8dp"/>
 
                 <Button
                     android:id="@+id/order_button"
-                    android:layout_width="80dp"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:text="@string/order"/>
             </LinearLayout>

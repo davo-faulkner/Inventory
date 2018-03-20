@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.NumberFormat;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
@@ -44,9 +46,12 @@ public class EditorActivity extends AppCompatActivity implements
     private int originalQuantity;
     private int quantity;
     private Button quantityPlusButton;
+    private TextView placeOrderLabelTextView;
     private EditText orderQuantityEditText;
     private Button orderButton;
     private boolean itemHasChanged = false;
+    private String nameString;
+    private String priceString;
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
 
@@ -92,6 +97,7 @@ public class EditorActivity extends AppCompatActivity implements
         quantityTextView = (TextView) findViewById(R.id.item_quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         quantityPlusButton.setOnClickListener(plusButtonListener);
+        placeOrderLabelTextView = (TextView) findViewById(R.id.place_order_label_textview);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
         orderButton.setOnClickListener(orderButtonListener);
@@ -110,6 +116,9 @@ public class EditorActivity extends AppCompatActivity implements
             setTitle(getString(R.string.editor_activity_title_edit_item));
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
             displayQuantity();
+            placeOrderLabelTextView.setVisibility(View.VISIBLE);
+            orderQuantityEditText.setVisibility(View.VISIBLE);
+            orderButton.setVisibility(View.VISIBLE);
         }
 
         nameEditText.setOnTouchListener(touchListener);
@@ -208,27 +217,19 @@ public class EditorActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
     private void saveItem() {
-        String nameString = nameEditText.getText().toString().trim();
-        String priceString = priceEditText.getText().toString();
-        Float priceFloat = Float.parseFloat(priceString);
-        int priceInt = (int) (priceFloat * 100);
-
-        if (currentItemUri == null && TextUtils.isEmpty(nameString)
+        if (currentItemUri == null &&
+                TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(priceEditText.getText().toString()) &&
                 originalQuantity == quantity) {
             return;
         }
 
-        if (TextUtils.isEmpty(nameString)) {
-            //TODO Add String resources, Davo
-            Toast.makeText(this, "Item name required", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        nameString = nameEditText.getText().toString().trim();
+        priceString = priceEditText.getText().toString();
+        Float priceFloat = Float.parseFloat(priceString);
+        int priceInt = (int) (priceFloat * 100);
 
-        if (priceInt == 0) {
-            Toast.makeText(this, "Item price required", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
