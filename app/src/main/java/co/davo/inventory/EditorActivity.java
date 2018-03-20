@@ -90,6 +90,15 @@ public class EditorActivity extends AppCompatActivity implements
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_item));
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
+            if (savedInstanceState != null) {
+                quantity = savedInstanceState.getInt(INSTANCE_KEY_QUANTITY);
+                Toast.makeText(this, "Restored quantity = " + quantity,
+                        Toast.LENGTH_SHORT).show();
+                //TODO Give same treatment as above to edited item
+            } else {
+                quantity = originalQuantity;
+            }
+            displayQuantity();
         }
 
         nameEditText.setOnTouchListener(touchListener);
@@ -361,13 +370,13 @@ public class EditorActivity extends AppCompatActivity implements
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
 
             String name = cursor.getString(nameColumnIndex);
-            originalQuantity = cursor.getInt(quantityColumnIndex);
+            quantity = cursor.getInt(quantityColumnIndex);
             int priceInt = cursor.getInt(priceColumnIndex);
             float priceFloatInflated = (float) priceInt;
             float priceFloat = priceFloatInflated / 100;
 
             nameEditText.setText(name);
-            quantityTextView.setText(Integer.toString(originalQuantity));
+            quantityTextView.setText(Integer.toString(quantity));
             priceEditText.setText(String.format("%.02f", priceFloat));
         }
     }
