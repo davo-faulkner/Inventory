@@ -274,13 +274,24 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void placeOrder() {
-        quantity = quantity +
+        int orderQuantity =
                 Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
-        displayQuantity();
+        String emailBody = "John,\n" +
+                "\n" +
+                "Can you please process an order for " + orderQuantity + " " +
+                nameEditText.getEditableText().toString().trim() + "s. I believe they are currently " +
+                "priced at $" +
+                priceEditText.getEditableText().toString().trim() + ".\n" +
+                "\n" +
+                "Thanks!";
         orderQuantityEditText.setText("");
-        Toast.makeText(this,
-                "Order placed. Save changes to receive items into inventory.",
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "New Order");
+        intent.putExtra(Intent.EXTRA_TEXT, emailBody);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     private void displayQuantity() {
