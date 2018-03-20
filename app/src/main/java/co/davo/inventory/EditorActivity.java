@@ -33,6 +33,7 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
 
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
+
     private static final int EXISTING_ITEM_LOADER = 0;
     private static final String INSTANCE_KEY_QUANTITY = "quantity";
     private Uri currentItemUri;
@@ -48,13 +49,34 @@ public class EditorActivity extends AppCompatActivity implements
     private boolean itemHasChanged = false;
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
+
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             itemHasChanged = true;
             return false;
         }
     };
+    private View.OnClickListener orderButtonListener = new View.OnClickListener() {
 
+        @Override
+        public void onClick(View view) {
+            placeOrder();
+        }
+    };
+    private View.OnClickListener plusButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            incrementQuantity();
+        }
+    };
+    private View.OnClickListener minusButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            decrementQuantity();
+        }
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,13 +119,15 @@ public class EditorActivity extends AppCompatActivity implements
         orderQuantityEditText.setOnTouchListener(touchListener);
         orderButton.setOnTouchListener(touchListener);
     }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(INSTANCE_KEY_QUANTITY, quantity);
         super.onSaveInstanceState(outState);
     }
-
+    private void displayQuantity() {
+        String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
+        quantityTextView.setText(quantityString);
+    }
     @Override
     public void onBackPressed() {
         if (!itemHasChanged) {
@@ -113,15 +137,15 @@ public class EditorActivity extends AppCompatActivity implements
 
         DialogInterface.OnClickListener discardButtonClickListener =
                 new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
                     }
                 };
 
-                showUnsavedChangesDialog(discardButtonClickListener);
+        showUnsavedChangesDialog(discardButtonClickListener);
     }
-
     private void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -130,6 +154,7 @@ public class EditorActivity extends AppCompatActivity implements
                 discardButtonClickListener);
         alertBuilder.setNegativeButton(R.string.unsaved_changes_negative_button,
                 new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (dialogInterface != null) {
@@ -182,7 +207,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void saveItem() {
         String nameString = nameEditText.getText().toString().trim();
         String priceString = priceEditText.getText().toString();
@@ -233,7 +257,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
         return;
     }
-
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Delete this item?");
@@ -256,7 +279,6 @@ public class EditorActivity extends AppCompatActivity implements
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
     private void deleteItem() {
         if (currentItemUri != null) {
             int rowsDeleted = getContentResolver().delete(currentItemUri, null,
@@ -270,7 +292,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
         finish();
     }
-
     private void placeOrder() {
         int orderQuantity =
                 Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
@@ -292,46 +313,17 @@ public class EditorActivity extends AppCompatActivity implements
         }
     }
 
-    private void displayQuantity() {
-        String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
-        quantityTextView.setText(quantityString);
-    }
-
-    private View.OnClickListener orderButtonListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            placeOrder();
-        }
-    };
-
+    //TODO Davo, fix Dialog for up(?) button 10/12/17
     private void incrementQuantity() {
         quantity++;
         displayQuantity();
     }
-
     private void decrementQuantity() {
         if (quantity > 0) {
             quantity--;
             displayQuantity();
         }
     }
-
-    //TODO Davo, fix Dialog for up(?) button 10/12/17
-
-    private View.OnClickListener plusButtonListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            incrementQuantity();
-        }
-    };
-
-    private View.OnClickListener minusButtonListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            decrementQuantity();
-        }
-    };
-
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {

@@ -15,6 +15,7 @@
         <TextView
             android:id="@+id/name_textView"
             style="@style/textview_style"
+            android:textColor="@color/secondaryTextColor"
             android:layout_marginBottom="0dp"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -23,6 +24,7 @@
         <TextView
             android:id="@+id/price_textView"
             style="@style/textview_style"
+            android:textColor="@color/secondaryTextColor"
             android:layout_marginBottom="0dp"
             android:textSize="16sp"
             tools:text="Price"/>
@@ -38,7 +40,6 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:textSize="32sp"
-        android:textStyle="bold"
         tools:text="5"/>
 
     <Button
