@@ -357,7 +357,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             nameEditText.setText(name);
             quantityTextView.setText(Integer.toString(originalQuantity));
-            priceEditText.setText(Float.toString(priceFloat));
+            priceEditText.setText(String.format("%.02f", priceFloat));
         }
     }
     @Override
