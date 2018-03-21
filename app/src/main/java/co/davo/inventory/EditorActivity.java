@@ -229,13 +229,13 @@ public class EditorActivity extends AppCompatActivity implements
                 TextUtils.isEmpty(nameEditText.getText().toString()) &&
                 !TextUtils.isEmpty(priceEditText.getText().toString())) {
             Log.d("saveItem: ", "Item Name empty");
-            Toast.makeText(this, "Item Name is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.name_required_toast, Toast.LENGTH_SHORT).show();
             nameEditText.requestFocus();
         } else if (currentItemUri == null &&
                 !TextUtils.isEmpty(nameEditText.getText().toString()) &&
                 TextUtils.isEmpty(priceEditText.getText().toString())) {
             Log.d("saveItem: ", "Item Price empty");
-            Toast.makeText(this, "Item Price is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.price_required_toast, Toast.LENGTH_SHORT).show();
             priceEditText.requestFocus();
         } else {
             nameString = nameEditText.getText().toString().trim();
@@ -253,20 +253,22 @@ public class EditorActivity extends AppCompatActivity implements
                 Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
 
                 if (newUri == null) {
-                    Toast.makeText(this, "Error with saving item",
+                    Toast.makeText(this, R.string.error_saving_toast,
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.item_saved_toast,
+                            Toast.LENGTH_SHORT).show();
                 }
             } else {
                 int rowsAffected = getContentResolver().update(currentItemUri, values, null,
                         null);
 
                 if (rowsAffected == 0) {
-                    Toast.makeText(this, "Error with saving item",
+                    Toast.makeText(this, R.string.error_saving_toast,
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.item_saved_toast,
+                            Toast.LENGTH_SHORT).show();
                 }
             }
             finish();
@@ -274,15 +276,17 @@ public class EditorActivity extends AppCompatActivity implements
     }
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete this item?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.delete_item_dialog);
+        builder.setPositiveButton(R.string.delete_item_dialog_positive,
+                new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 deleteItem();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.delete_item_dialog_negative,
+                new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -299,10 +303,11 @@ public class EditorActivity extends AppCompatActivity implements
             int rowsDeleted = getContentResolver().delete(currentItemUri, null,
                     null);
             if (rowsDeleted == 0) {
-                Toast.makeText(this, "Error with deleting item",
+                Toast.makeText(this, R.string.error_deleting_toast,
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.item_deleted_toast,
+                        Toast.LENGTH_SHORT).show();
             }
         }
         finish();
@@ -310,18 +315,18 @@ public class EditorActivity extends AppCompatActivity implements
     private void placeOrder() {
         int orderQuantity =
                 Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
-        String emailBody = "John,\n" +
-                "\n" +
-                "Can you please process an order for " + orderQuantity + " " +
-                nameEditText.getEditableText().toString().trim() + "s. I believe they are " +
-                "currently priced at $" +
-                priceEditText.getEditableText().toString().trim() + ".\n" +
-                "\n" +
-                "Thanks!";
+        String emailBody = getResources().getString(R.string.order_more_sample_name) + "," + "\n" +
+                "\n" + getResources().getString(R.string.order_more_email_body_1) + " " +
+                orderQuantity + " " + nameEditText.getEditableText().toString().trim() +
+                getResources().getString(R.string.order_more_email_body_1_5) + " " +
+                getResources().getString(R.string.order_more_email_body_2) +
+                priceEditText.getEditableText().toString().trim() + ".\n" + "\n" +
+                getResources().getString(R.string.order_more_email_body_3);
         orderQuantityEditText.setText("");
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_SUBJECT, "New Order");
+        intent.putExtra(Intent.EXTRA_SUBJECT,
+                getResources().getString(R.string.order_more_email_subject));
         intent.putExtra(Intent.EXTRA_TEXT, emailBody);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);

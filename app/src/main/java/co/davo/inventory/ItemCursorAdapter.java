@@ -21,12 +21,13 @@ import co.davo.inventory.data.InventoryContract.InventoryEntry;
  */
 
 public class ItemCursorAdapter extends CursorAdapter {
+
     public ItemCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
     }
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.list_item,parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
     }
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
@@ -76,7 +77,7 @@ public class ItemCursorAdapter extends CursorAdapter {
                 }
             }
             private void showSaleButtonZeroQuantityToast() {
-                Toast.makeText(context, "Tap Item to Change Quantity & Order More",
+                Toast.makeText(context, R.string.order_more_toast,
                         Toast.LENGTH_LONG).show();
             }
         });

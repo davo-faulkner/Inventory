@@ -21,17 +21,18 @@
         </activity>
         <activity
             android:name=".EditorActivity"
-            android:windowSoftInputMode="stateVisible"
+            android:parentActivityName=".CatalogActivity"
             android:theme="@style/EditorTheme"
-            android:parentActivityName=".CatalogActivity" >
+            android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CatalogActivity" />
+                android:value=".CatalogActivity"/>
         </activity>
+
         <provider
             android:name=".data.InventoryProvider"
             android:authorities="co.davo.inventory"
-            android:exported="false" />
+            android:exported="false"/>
     </application>
 
 </manifest>

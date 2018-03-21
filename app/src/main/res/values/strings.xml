@@ -18,4 +18,20 @@
     <string name="action_save">Save Item</string>
     <string name="action_delete">Delete Item</string>
     <string name="new_order">New Order</string>
+    <string name="order_more_toast"><![CDATA[Tap Item to Change Quantity & Order More]]></string>
+    <string name="name_required_toast">Item Name is required</string>
+    <string name="price_required_toast">Item Price is required</string>
+    <string name="error_saving_toast">Error saving item</string>
+    <string name="item_saved_toast">Item saved</string>
+    <string name="delete_item_dialog">Delete this item?</string>
+    <string name="delete_item_dialog_positive">Delete</string>
+    <string name="delete_item_dialog_negative">Cancel</string>
+    <string name="error_deleting_toast">Error deleting item</string>
+    <string name="item_deleted_toast">Item deleted</string>
+    <string name="order_more_sample_name">John</string>
+    <string name="order_more_email_body_1">Can you please process an order for</string>
+    <string name="order_more_email_body_2">currently priced at $</string>
+    <string name="order_more_email_body_3">Thanks!</string>
+    <string name="order_more_email_subject">New Order</string>
+    <string name="order_more_email_body_1_5">(s/es). I believe they are</string>
 </resources>
