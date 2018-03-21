@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -88,7 +90,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         @Override
         public void onClick(View v) {
-
+            dispatchTakePictureIntent();
         }
     };
     @Override
@@ -138,6 +140,20 @@ public class EditorActivity extends AppCompatActivity implements
         quantityPlusButton.setOnTouchListener(touchListener);
         orderQuantityEditText.setOnTouchListener(touchListener);
         orderButton.setOnTouchListener(touchListener);
+    }
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            itemImage.setImageBitmap(imageBitmap);
+        }
     }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
