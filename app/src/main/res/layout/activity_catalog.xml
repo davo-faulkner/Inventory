@@ -19,7 +19,7 @@
         android:layout_centerInParent="true"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/textColor"
+        android:textColor="@color/secondaryTextColor"
         android:textStyle="bold"
         tools:text="Click Button to Add Items."/>
 
