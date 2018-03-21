@@ -233,6 +233,14 @@ public class EditorActivity extends AppCompatActivity implements
             Log.d("saveItem: ", "Item Price empty");
             Toast.makeText(this, R.string.price_required_toast, Toast.LENGTH_SHORT).show();
             priceEditText.requestFocus();
+        } else if (currentItemUri == null &&
+                TextUtils.isEmpty(nameEditText.getText().toString()) &&
+                TextUtils.isEmpty(priceEditText.getText().toString()) &&
+                originalQuantity != quantity) {
+            Log.d("saveItem: ", "Item Name & Price empty");
+            Toast.makeText(this, R.string.name_and_price_required_toast,
+                    Toast.LENGTH_SHORT).show();
+            nameEditText.requestFocus();
         } else {
             nameString = nameEditText.getText().toString().trim();
             priceString = priceEditText.getText().toString();

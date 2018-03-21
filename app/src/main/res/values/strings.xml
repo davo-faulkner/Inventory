@@ -34,5 +34,6 @@
     <string name="order_more_email_body_4">Thanks!</string>
     <string name="order_more_email_subject">New Order</string>
     <string name="order_more_email_body_2">(s/es). I believe they are</string>
-    <string name="order_more_quantity_required_toast">Order Quantity required</string>
+    <string name="order_more_quantity_required_toast">Order Quantity is required</string>
+    <string name="name_and_price_required_toast"><![CDATA[Item Name & Price are required]]></string>
 </resources>
