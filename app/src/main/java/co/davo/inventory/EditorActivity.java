@@ -14,6 +14,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -193,7 +194,6 @@ public class EditorActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_save:
                 saveItem();
-                finish();
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
@@ -218,45 +218,55 @@ public class EditorActivity extends AppCompatActivity implements
     }
     private void saveItem() {
         if (currentItemUri == null &&
-                TextUtils.isEmpty(nameString)
-                && TextUtils.isEmpty(priceEditText.getText().toString()) &&
+                TextUtils.isEmpty(nameEditText.getText().toString()) &&
+                TextUtils.isEmpty(priceEditText.getText().toString()) &&
                 originalQuantity == quantity) {
-            return;
-        }
-
-        nameString = nameEditText.getText().toString().trim();
-        priceString = priceEditText.getText().toString();
-        Float priceFloat = Float.parseFloat(priceString);
-        int priceInt = (int) (priceFloat * 100);
-
-
-
-        ContentValues values = new ContentValues();
-        values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
-        values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceInt);
-        values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantity);
-
-        if (currentItemUri == null) {
-            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
-
-            if (newUri == null) {
-                Toast.makeText(this, "Error with saving item",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
-            }
+            Log.d("saveItem: ", "Item completely empty");
+            finish();
+        } else if (currentItemUri == null &&
+                TextUtils.isEmpty(nameEditText.getText().toString()) &&
+                !TextUtils.isEmpty(priceEditText.getText().toString())) {
+            Log.d("saveItem: ", "Item Name empty");
+            Toast.makeText(this, "Item Name is required", Toast.LENGTH_SHORT).show();
+        } else if (currentItemUri == null &&
+                !TextUtils.isEmpty(nameEditText.getText().toString()) &&
+                TextUtils.isEmpty(priceEditText.getText().toString())) {
+            Log.d("saveItem: ", "Item Price empty");
+            Toast.makeText(this, "Item Price is required", Toast.LENGTH_SHORT).show();
         } else {
-            int rowsAffected = getContentResolver().update(currentItemUri, values, null,
-                    null);
+            nameString = nameEditText.getText().toString().trim();
+            priceString = priceEditText.getText().toString();
+            Float priceFloat = Float.parseFloat(priceString);
+            int priceInt = (int) (priceFloat * 100);
 
-            if (rowsAffected == 0) {
-                Toast.makeText(this, "Error with saving item",
-                        Toast.LENGTH_SHORT).show();
+
+            ContentValues values = new ContentValues();
+            values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
+            values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceInt);
+            values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantity);
+
+            if (currentItemUri == null) {
+                Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+
+                if (newUri == null) {
+                    Toast.makeText(this, "Error with saving item",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+                int rowsAffected = getContentResolver().update(currentItemUri, values, null,
+                        null);
+
+                if (rowsAffected == 0) {
+                    Toast.makeText(this, "Error with saving item",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+                }
             }
+            finish();
         }
-        return;
     }
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
