@@ -339,7 +339,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
     }
 
-    //TODO Davo, fix Dialog for up(?) button 10/12/17
     private void incrementQuantity() {
         quantity++;
         displayQuantity();
