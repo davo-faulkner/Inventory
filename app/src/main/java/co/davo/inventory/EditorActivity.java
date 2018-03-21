@@ -280,21 +280,21 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setPositiveButton(R.string.delete_item_dialog_positive,
                 new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                deleteItem();
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteItem();
+                    }
+                });
         builder.setNegativeButton(R.string.delete_item_dialog_negative,
                 new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (dialogInterface != null) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (dialogInterface != null) {
+                            dialogInterface.dismiss();
+                        }
+                    }
+                });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -313,23 +313,29 @@ public class EditorActivity extends AppCompatActivity implements
         finish();
     }
     private void placeOrder() {
-        int orderQuantity =
-                Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
-        String emailBody = getResources().getString(R.string.order_more_sample_name) + "," + "\n" +
-                "\n" + getResources().getString(R.string.order_more_email_body_1) + " " +
-                orderQuantity + " " + nameEditText.getEditableText().toString().trim() +
-                getResources().getString(R.string.order_more_email_body_1_5) + " " +
-                getResources().getString(R.string.order_more_email_body_2) +
-                priceEditText.getEditableText().toString().trim() + ".\n" + "\n" +
-                getResources().getString(R.string.order_more_email_body_3);
-        orderQuantityEditText.setText("");
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_SUBJECT,
-                getResources().getString(R.string.order_more_email_subject));
-        intent.putExtra(Intent.EXTRA_TEXT, emailBody);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
+        if (TextUtils.isEmpty(orderQuantityEditText.getEditableText().toString().trim())) {
+            Toast.makeText(this, R.string.order_more_quantity_required_toast,
+                    Toast.LENGTH_SHORT).show();
+            orderQuantityEditText.requestFocus();
+        } else {
+            int orderQuantity =
+                    Integer.parseInt(orderQuantityEditText.getEditableText().toString().trim());
+            String emailBody = getResources().getString(R.string.order_more_sample_name) + "," +
+                    "\n" + "\n" + getResources().getString(R.string.order_more_email_body_1) + " " +
+                    orderQuantity + " " + nameEditText.getEditableText().toString().trim() +
+                    getResources().getString(R.string.order_more_email_body_1_5) + " " +
+                    getResources().getString(R.string.order_more_email_body_2) +
+                    priceEditText.getEditableText().toString().trim() + ".\n" + "\n" +
+                    getResources().getString(R.string.order_more_email_body_3);
+            orderQuantityEditText.setText("");
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_SUBJECT,
+                    getResources().getString(R.string.order_more_email_subject));
+            intent.putExtra(Intent.EXTRA_TEXT, emailBody);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         }
     }
 
