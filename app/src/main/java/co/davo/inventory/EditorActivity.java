@@ -230,11 +230,13 @@ public class EditorActivity extends AppCompatActivity implements
                 !TextUtils.isEmpty(priceEditText.getText().toString())) {
             Log.d("saveItem: ", "Item Name empty");
             Toast.makeText(this, "Item Name is required", Toast.LENGTH_SHORT).show();
+            nameEditText.requestFocus();
         } else if (currentItemUri == null &&
                 !TextUtils.isEmpty(nameEditText.getText().toString()) &&
                 TextUtils.isEmpty(priceEditText.getText().toString())) {
             Log.d("saveItem: ", "Item Price empty");
             Toast.makeText(this, "Item Price is required", Toast.LENGTH_SHORT).show();
+            priceEditText.requestFocus();
         } else {
             nameString = nameEditText.getText().toString().trim();
             priceString = priceEditText.getText().toString();
