@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-    android:padding="8dp">
+              android:orientation="horizontal"
+              android:padding="8dp">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -15,8 +15,8 @@
         <TextView
             android:id="@+id/name_textView"
             style="@style/textview_style"
-            android:textColor="@color/secondaryTextColor"
             android:layout_marginBottom="0dp"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="22sp"
             android:textStyle="bold"
             tools:text="Name"/>
@@ -24,8 +24,8 @@
         <TextView
             android:id="@+id/price_textView"
             style="@style/textview_style"
-            android:textColor="@color/secondaryTextColor"
             android:layout_marginBottom="0dp"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="16sp"
             tools:text="Price"/>
 
@@ -33,10 +33,10 @@
 
     <TextView
         android:id="@+id/quantity_textView"
+        style="@style/quantity_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        style="@style/quantity_style"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:textSize="32sp"
@@ -46,10 +46,10 @@
         android:id="@+id/sale_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sale"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:text="Sale"/>
 
 </LinearLayout>

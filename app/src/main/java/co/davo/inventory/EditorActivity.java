@@ -2,7 +2,6 @@ package co.davo.inventory;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,13 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 
@@ -323,10 +319,10 @@ public class EditorActivity extends AppCompatActivity implements
             String emailBody = getResources().getString(R.string.order_more_sample_name) + "," +
                     "\n" + "\n" + getResources().getString(R.string.order_more_email_body_1) + " " +
                     orderQuantity + " " + nameEditText.getEditableText().toString().trim() +
-                    getResources().getString(R.string.order_more_email_body_1_5) + " " +
-                    getResources().getString(R.string.order_more_email_body_2) +
+                    getResources().getString(R.string.order_more_email_body_2) + " " +
+                    getResources().getString(R.string.order_more_email_body_3) +
                     priceEditText.getEditableText().toString().trim() + ".\n" + "\n" +
-                    getResources().getString(R.string.order_more_email_body_3);
+                    getResources().getString(R.string.order_more_email_body_4);
             orderQuantityEditText.setText("");
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:")); // only email apps should handle this

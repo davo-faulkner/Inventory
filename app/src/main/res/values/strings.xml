@@ -30,9 +30,9 @@
     <string name="item_deleted_toast">Item deleted</string>
     <string name="order_more_sample_name">John</string>
     <string name="order_more_email_body_1">Can you please process an order for</string>
-    <string name="order_more_email_body_2">currently priced at $</string>
-    <string name="order_more_email_body_3">Thanks!</string>
+    <string name="order_more_email_body_3">currently priced at $</string>
+    <string name="order_more_email_body_4">Thanks!</string>
     <string name="order_more_email_subject">New Order</string>
-    <string name="order_more_email_body_1_5">(s/es). I believe they are</string>
+    <string name="order_more_email_body_2">(s/es). I believe they are</string>
     <string name="order_more_quantity_required_toast">Order Quantity required</string>
 </resources>

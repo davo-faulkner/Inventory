@@ -14,21 +14,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/category_name"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            android:text="@string/category_name"/>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <EditText
                 android:id="@+id/item_name_editText"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/hint_item_name"
-                android:inputType="textCapWords|textAutoComplete"
-                style="@style/EditorFieldStyle" />
+                android:inputType="textCapWords|textAutoComplete"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -43,32 +43,32 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-        <TextView
-            android:text="@string/category_price"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/CategoryStyle" />
+            <TextView
+                style="@style/CategoryStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/category_price"/>
 
-        <TextView
-            android:text="$"
-            android:layout_width="wrap_content"
-            android:layout_weight="0"
-            style="@style/CategoryStyle"/>
+            <TextView
+                style="@style/CategoryStyle"
+                android:layout_width="wrap_content"
+                android:layout_weight="0"
+                android:text="$"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <EditText
                 android:id="@+id/item_price_editText"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/hint_item_price"
-                android:inputType="numberDecimal"
-                style="@style/EditorFieldStyle" />
+                android:inputType="numberDecimal"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -79,15 +79,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/category_quantity"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            android:text="@string/category_quantity"/>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,16 +101,16 @@
                     android:text="-"
                     android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/item_quantity_textView"
-                android:gravity="center_vertical"
-                style="@style/EditorFieldStyle"
-                android:textColor="@android:color/black"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                tools:text="0"/>
+                <TextView
+                    android:id="@+id/item_quantity_textView"
+                    style="@style/EditorFieldStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:textColor="@android:color/black"
+                    tools:text="0"/>
 
                 <Button
                     android:id="@+id/quantity_plus_button"
@@ -131,16 +131,16 @@
 
         <TextView
             android:id="@+id/place_order_label_textview"
-            android:text="@string/category_order"
             style="@style/CategoryStyle"
+            android:text="@string/category_order"
             android:visibility="invisible"/>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,21 +149,21 @@
 
                 <EditText
                     android:id="@+id/order_quantity_editText"
+                    style="@style/EditorFieldStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:hint="@string/hint_item_order_quantity"
-                    android:visibility="invisible"
                     android:inputType="number"
-                    style="@style/EditorFieldStyle"
-                    android:layout_marginRight="8dp"/>
+                    android:visibility="invisible"/>
 
                 <Button
                     android:id="@+id/order_button"
-                    android:visibility="invisible"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="@string/order"/>
+                    android:text="@string/order"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
         </LinearLayout>

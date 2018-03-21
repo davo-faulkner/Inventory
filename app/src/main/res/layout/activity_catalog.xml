@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/empty_view"
@@ -21,7 +21,7 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/textColor"
         android:textStyle="bold"
-        tools:text="No items found." />
+        tools:text="No items found."/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
