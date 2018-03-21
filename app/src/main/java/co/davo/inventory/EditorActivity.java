@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int EXISTING_ITEM_LOADER = 0;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String INSTANCE_KEY_QUANTITY = "quantity";
     private Uri currentItemUri;
     private EditText nameEditText;
@@ -45,6 +47,7 @@ public class EditorActivity extends AppCompatActivity implements
     private int originalQuantity;
     private int quantity;
     private Button quantityPlusButton;
+    private ImageView itemImage;
     private TextView placeOrderLabelTextView;
     private EditText orderQuantityEditText;
     private Button orderButton;
@@ -81,6 +84,13 @@ public class EditorActivity extends AppCompatActivity implements
             decrementQuantity();
         }
     };
+    private View.OnClickListener itemImageListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +106,8 @@ public class EditorActivity extends AppCompatActivity implements
         quantityTextView = (TextView) findViewById(R.id.item_quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         quantityPlusButton.setOnClickListener(plusButtonListener);
+        itemImage = (ImageView) findViewById(R.id.item_image);
+        itemImage.setOnClickListener(itemImageListener);
         placeOrderLabelTextView = (TextView) findViewById(R.id.place_order_label_textview);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
