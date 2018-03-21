@@ -21,6 +21,7 @@
         </activity>
         <activity
             android:name=".EditorActivity"
+            android:windowSoftInputMode="stateVisible"
             android:theme="@style/EditorTheme"
             android:parentActivityName=".CatalogActivity" >
             <meta-data
