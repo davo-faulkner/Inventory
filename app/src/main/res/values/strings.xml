@@ -11,7 +11,7 @@
     <string name="category_order">Place Order</string>
     <string name="order">Order More</string>
     <string name="hint_item_order_quantity">Quantity</string>
-    <string name="no_items_found">No items found.</string>
+    <string name="no_items_found">Click Button to Add Items.</string>
     <string name="unsaved_changes_alert_message">Exit without saving?</string>
     <string name="unsaved_changes_positive_button">Exit</string>
     <string name="unsaved_changes_negative_button">Cancel</string>

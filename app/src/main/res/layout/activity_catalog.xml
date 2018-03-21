@@ -21,7 +21,7 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/textColor"
         android:textStyle="bold"
-        tools:text="No items found."/>
+        tools:text="Click Button to Add Items."/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
