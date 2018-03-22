@@ -247,11 +247,18 @@ public class EditorActivity extends AppCompatActivity implements
     }
     private void saveItem() {
         if (currentItemUri == null &&
+                itemImageBitmap == null &&
                 TextUtils.isEmpty(nameEditText.getText().toString()) &&
                 TextUtils.isEmpty(priceEditText.getText().toString()) &&
                 originalQuantity == quantity) {
             Log.d("saveItem: ", "Item completely empty");
             finish();
+        } else if (currentItemUri == null &&
+                itemImageBitmap == null &&
+                !TextUtils.isEmpty(nameEditText.getText().toString()) &&
+                !TextUtils.isEmpty(priceEditText.getText().toString())) {
+            Log.d("saveItem: ", "Item Image empty");
+            Toast.makeText(this, R.string.image_required_toast, Toast.LENGTH_SHORT).show();
         } else if (currentItemUri == null &&
                 TextUtils.isEmpty(nameEditText.getText().toString()) &&
                 !TextUtils.isEmpty(priceEditText.getText().toString())) {
