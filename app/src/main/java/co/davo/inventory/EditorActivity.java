@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 
 import co.davo.inventory.data.InventoryContract.InventoryEntry;
@@ -49,7 +50,8 @@ public class EditorActivity extends AppCompatActivity implements
     private int originalQuantity;
     private int quantity;
     private Button quantityPlusButton;
-    private ImageView itemImage;
+    private ImageView itemImageView;
+    private Bitmap itemImageBitmap;
     private TextView placeOrderLabelTextView;
     private EditText orderQuantityEditText;
     private Button orderButton;
@@ -108,8 +110,8 @@ public class EditorActivity extends AppCompatActivity implements
         quantityTextView = (TextView) findViewById(R.id.item_quantity_textView);
         quantityPlusButton = (Button) findViewById(R.id.quantity_plus_button);
         quantityPlusButton.setOnClickListener(plusButtonListener);
-        itemImage = (ImageView) findViewById(R.id.item_image);
-        itemImage.setOnClickListener(itemImageListener);
+        itemImageView = (ImageView) findViewById(R.id.item_image);
+        itemImageView.setOnClickListener(itemImageListener);
         placeOrderLabelTextView = (TextView) findViewById(R.id.place_order_label_textview);
         orderQuantityEditText = (EditText) findViewById(R.id.order_quantity_editText);
         orderButton = (Button) findViewById(R.id.order_button);
@@ -151,8 +153,8 @@ public class EditorActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            itemImage.setImageBitmap(imageBitmap);
+            itemImageBitmap = (Bitmap) extras.get("data");
+            itemImageView.setImageBitmap(itemImageBitmap);
         }
     }
     @Override
@@ -274,12 +276,16 @@ public class EditorActivity extends AppCompatActivity implements
             priceString = priceEditText.getText().toString();
             Float priceFloat = Float.parseFloat(priceString);
             int priceInt = (int) (priceFloat * 100);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            itemImageBitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+            byte[] imageByteArray = stream.toByteArray();
 
 
             ContentValues values = new ContentValues();
             values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
             values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceInt);
             values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantity);
+            values.put(InventoryEntry.COLUMN_ITEM_IMAGE, imageByteArray);
 
             if (currentItemUri == null) {
                 Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
