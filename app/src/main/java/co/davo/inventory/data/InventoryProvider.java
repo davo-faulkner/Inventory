@@ -107,6 +107,11 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Item requires a positive price");
         }
 
+        byte[] image = values.getAsByteArray(InventoryEntry.COLUMN_ITEM_IMAGE);
+        if (image == null) {
+            throw new IllegalArgumentException("Item requires an image");
+        }
+
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         long id = database.insert(InventoryEntry.TABLE_NAME, null, values);
@@ -178,6 +183,13 @@ public class InventoryProvider extends ContentProvider {
             Integer price = values.getAsInteger(InventoryEntry.COLUMN_ITEM_PRICE);
             if (price == null || price < 0) {
                 throw new IllegalArgumentException("Item requires a positive price");
+            }
+        }
+
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_IMAGE)) {
+            byte[] image = values.getAsByteArray(InventoryEntry.COLUMN_ITEM_IMAGE);
+            if (image == null) {
+                throw new IllegalArgumentException("Item requires an image");
             }
         }
 
