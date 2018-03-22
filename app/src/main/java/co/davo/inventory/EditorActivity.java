@@ -27,7 +27,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 
@@ -143,6 +142,7 @@ public class EditorActivity extends AppCompatActivity implements
         quantityPlusButton.setOnTouchListener(touchListener);
         orderQuantityEditText.setOnTouchListener(touchListener);
         orderButton.setOnTouchListener(touchListener);
+        itemImageView.setOnTouchListener(touchListener);
     }
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
