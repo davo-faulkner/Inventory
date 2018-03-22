@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 
@@ -144,6 +145,15 @@ public class EditorActivity extends AppCompatActivity implements
         orderButton.setOnTouchListener(touchListener);
         itemImageView.setOnTouchListener(touchListener);
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(INSTANCE_KEY_QUANTITY, quantity);
+        super.onSaveInstanceState(outState);
+    }
+    private void displayQuantity() {
+        String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
+        quantityTextView.setText(quantityString);
+    }
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -157,15 +167,6 @@ public class EditorActivity extends AppCompatActivity implements
             itemImageBitmap = (Bitmap) extras.get("data");
             itemImageView.setImageBitmap(itemImageBitmap);
         }
-    }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(INSTANCE_KEY_QUANTITY, quantity);
-        super.onSaveInstanceState(outState);
-    }
-    private void displayQuantity() {
-        String quantityString = String.valueOf(NumberFormat.getIntegerInstance().format(quantity));
-        quantityTextView.setText(quantityString);
     }
     @Override
     public void onBackPressed() {
