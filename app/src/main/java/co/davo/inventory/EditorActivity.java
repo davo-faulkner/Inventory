@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -277,7 +278,7 @@ public class EditorActivity extends AppCompatActivity implements
             Float priceFloat = Float.parseFloat(priceString);
             int priceInt = (int) (priceFloat * 100);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            itemImageBitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+            itemImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] imageByteArray = stream.toByteArray();
 
 
@@ -393,7 +394,8 @@ public class EditorActivity extends AppCompatActivity implements
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
                 InventoryEntry.COLUMN_ITEM_QUANTITY,
-                InventoryEntry.COLUMN_ITEM_PRICE
+                InventoryEntry.COLUMN_ITEM_PRICE,
+                InventoryEntry.COLUMN_ITEM_IMAGE
         };
         return new CursorLoader(this,
                 currentItemUri,
@@ -412,17 +414,22 @@ public class EditorActivity extends AppCompatActivity implements
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
+            int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_IMAGE);
 
             String name = cursor.getString(nameColumnIndex);
             originalQuantity = cursor.getInt(quantityColumnIndex);
             int priceInt = cursor.getInt(priceColumnIndex);
             float priceFloatInflated = (float) priceInt;
             float priceFloat = priceFloatInflated / 100;
+            byte[] imageByteArray = cursor.getBlob(imageColumnIndex);
+            itemImageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0,
+                    imageByteArray.length);
 
             nameEditText.setText(name);
             quantityTextView.setText(Integer.toString(originalQuantity));
             priceEditText.setText(String.format("%.02f", priceFloat));
             quantity = originalQuantity;
+            itemImageView.setImageBitmap(itemImageBitmap);
         }
     }
     @Override
